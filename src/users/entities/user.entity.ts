@@ -38,7 +38,7 @@ export class User extends BaseEntity {
    * * 2 : Admin
    * */
   @ApiProperty()
-  @Column({type : "int"})
+  @Column({type : "int", default : 1})
   access : number ;
 
   /** Liste des paths de l'utilisateur */
