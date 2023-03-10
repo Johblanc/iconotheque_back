@@ -4,10 +4,13 @@ import { Request, Response } from 'express';
 /**
  * Permet de récupérer l'enssemble des Exceptions issues des divers controleurs.
  * Cette fonctionnalité formate l'erreur avant de la renvoyer dans la console et dans le front.
+ * 
  * @Responce .statusCode  : Valeur du Code Status de la responce
  * @Responce .timestamp   : Moment d'apparition de l'erreur
  * @Responce .path        : Route utilisée pour aboutir à cette erreur
  * @Responce .message     : Information sur l'erreur
+ * 
+ * @version v0
  */
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter 

@@ -4,11 +4,14 @@ import { map } from 'rxjs/operators';
 
 /**
  * Permet de récupérer l'enssemble des Requetes issues du front, de les chronométrer puis de les formater avant de les renvoyer.
+ * 
  * @return .statusCode  : Valeur du Code Status de la responce
  * @return .timestamp   : Moment de la Réponce
  * @return .path        : Route utilisée pour aboutir à cette Réponce
  * @return .message     : Information sur la Réponce
  * @return .data        : Les Données demandées
+ * 
+ * @version v0
  */
 @Injectable()
 export class ResponserInterceptor implements NestInterceptor 
