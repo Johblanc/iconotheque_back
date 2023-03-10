@@ -25,4 +25,9 @@ export class User extends BaseEntity {
   @ApiProperty()
   @Column({type : "varchar", unique : true})
   mail : string ;
+
+  /** Liste des paths de l'utilisateur */
+  @ApiProperty()
+  @OneToMany(()=> Path, (path)=> path.user)
+  paths : Path[]
 }

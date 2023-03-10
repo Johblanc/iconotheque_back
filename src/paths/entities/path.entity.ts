@@ -39,4 +39,9 @@ export class Path extends BaseEntity {
   @Column({type : "varchar"})
   viewbox : string ;
 
+  /** l'Auteur du path */
+  @ApiProperty()
+  @ManyToOne(()=> User, (user)=> user.paths)
+  user : User ;
+
 }
