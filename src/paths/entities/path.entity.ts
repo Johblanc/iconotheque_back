@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/users/entities/user.entity";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PathStatus } from "../Types/PathStatus";
 
 
@@ -19,7 +20,7 @@ export class Path extends BaseEntity {
 
   /** Nom du Path */
   @ApiProperty()
-  @Column({type : "varying character", unique : true})
+  @Column({type : "varchar", unique : true})
   name : string ;
 
   /** Status du Path "public" ou "private" */
@@ -29,13 +30,13 @@ export class Path extends BaseEntity {
 
   /** Chemin du Path */
   @ApiProperty()
-  @Column({type : "varying character"})
+  @Column({type : "varchar"})
   d : string ;
 
 
   /** Chemin du Path */
   @ApiProperty()
-  @Column({type : "varying character"})
+  @Column({type : "varchar"})
   viewbox : string ;
 
 }

@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Path } from "src/paths/entities/path.entity";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
 /**
@@ -17,12 +18,11 @@ export class User extends BaseEntity {
 
   /** Nom de l'Utilisateur */
   @ApiProperty()
-  @Column({type : "varying character", unique : true})
+  @Column({type : "varchar", unique : true})
   name : string ;
 
   /** Mail de l'Utilisateur */
   @ApiProperty()
-  @Column({type : "varying character", unique : true})
+  @Column({type : "varchar", unique : true})
   mail : string ;
-
 }
