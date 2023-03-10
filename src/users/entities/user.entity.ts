@@ -31,6 +31,16 @@ export class User extends BaseEntity {
   @Column({type : "varchar"})
   password : string ;
 
+  /** 
+   * Niveau d'acces de l'Utilisateur 
+   * * 0 : Visitor
+   * * 1 : User
+   * * 2 : Admin
+   * */
+  @ApiProperty()
+  @Column({type : "int"})
+  access : number ;
+
   /** Liste des paths de l'utilisateur */
   @ApiProperty()
   @OneToMany(()=> Path, (path)=> path.user)
