@@ -8,6 +8,7 @@ import { User } from './entities/user.entity';
  * 
  * *@v1 **create**          : Demande de création d'un utilisateur
  * *@v1 **findOneByName**   : Trouver un utilisateur par son nom
+ * *@v1 **findOneByMail**   : Trouver un utilisateur par son mail
  * 
  * @version v1
  */
@@ -41,4 +42,19 @@ export class UsersService
   {
     return await User.findOneBy({name})
   }
+
+
+  /**
+   * Trouver un utilisateur par son mail
+   * 
+   * @param mail email de l'utilisateur recherché
+   * @returns l'utilisateur, si il existe, sinon null
+   * 
+   * @version v1
+   */
+  async findOneByMail(mail : string) : Promise<User | null>
+  {
+    return await User.findOneBy({mail})
+  }
+
 }
