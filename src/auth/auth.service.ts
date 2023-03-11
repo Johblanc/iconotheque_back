@@ -35,4 +35,18 @@ export class AuthService {
     return null;
   }
 
+  /**
+   * Création du token
+   * 
+   * @param user L'utilisateur pour lequel le token doit être créé
+   * @returns le nouveau token
+   * 
+   * @version v1
+   */
+  token(user: User) {
+    
+    const payload = { name: user.name, sub: user.id };
+    
+    return this.jwtService.sign(payload)
+  }
 }
