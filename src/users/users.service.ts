@@ -57,4 +57,18 @@ export class UsersService
     return await User.findOneBy({mail})
   }
 
+
+  /**
+   * Trouver un utilisateur par token
+   * 
+   * @param token token de l'utilisateur recherché
+   * @returns l'utilisateur, si il existe, sinon null
+   * 
+   * @version v1
+   */
+  async findOneByToken(token : { name: string, sub: number, iat: number }) : Promise<User | null>
+  {
+    return await User.findOneBy({name : token.name, id : token.sub})
+  }
+
 }

@@ -5,6 +5,8 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './local.strategy';
 import { JwtModule } from '@nestjs/jwt/dist';
 import { ConfigModule } from '@nestjs/config';
+import { UserStrategy } from './user_guard/user.strategy';
+import { AdminStrategy } from './admin_guard/admin.strategy';
 
 
 
@@ -17,7 +19,7 @@ import { ConfigModule } from '@nestjs/config';
       secret: process.env.JWTCONSTANTS,
     })
   ],
-  providers: [AuthService , LocalStrategy],
+  providers: [AuthService , LocalStrategy, UserStrategy,AdminStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
