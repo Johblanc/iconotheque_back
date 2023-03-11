@@ -91,7 +91,22 @@ export class PathsService {
     return path;
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} path`;
+  /**
+   * Demande de suppression d'un path
+   * 
+   * @param id Identifiant du path à supprimer
+   * @returns 
+   * @returns le path supprimé
+   * 
+   * @version v1
+   */
+  async remove(id: number) : Promise<Path | null>
+  {
+    const path = await this.findOneById(id) ;
+    if (path)
+    {
+      await path.remove()
+    }
+    return path;
   }
 }
