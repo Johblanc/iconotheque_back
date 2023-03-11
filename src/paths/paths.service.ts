@@ -53,8 +53,18 @@ export class PathsService {
     return await Path.findOneBy({id});
   }
 
-  async findOneByName(id: number) {
-    return `This action returns a #${id} path`;
+
+  /**
+   * Demande de récupération d'un pathavec son nom
+   * 
+   * @param name nom du path recherché
+   * @returns Le path recherché, si il existe, sinon null
+   * 
+   * @version v1
+   */
+  async findOneByName(name: string) : Promise<Path | null>
+  {
+    return await Path.findOneBy({name});
   }
 
   async update(id: number, updatePathDto: UpdatePathDto) {
