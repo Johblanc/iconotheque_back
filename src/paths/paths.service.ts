@@ -40,7 +40,20 @@ export class PathsService {
     return await Path.find();
   }
 
-  async findOne(id: number) {
+  /**
+   * Demande de récupération d'un pathavec son id
+   * 
+   * @param id Identifiant du path recherché
+   * @returns Le path recherché, si il existe, sinon null
+   * 
+   * @version v1
+   */
+  async findOneById(id: number) : Promise<Path | null>
+  {
+    return await Path.findOneBy({id});
+  }
+
+  async findOneByName(id: number) {
     return `This action returns a #${id} path`;
   }
 
