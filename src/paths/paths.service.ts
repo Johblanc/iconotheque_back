@@ -9,6 +9,9 @@ import { Path } from './entities/path.entity';
  * 
  * @v1 **create**         : Demande de création d'un path
  * @v1 **findAll**        : Demande de récupération de tous les paths
+ * @v1 **findOneById**    : Demande de récupération d'un path avec son id
+ * @v1 **findOneByName**  : Demande de récupération d'un path avec son nom
+ * @v1 **update**         : Demande de modification d'un path
  * 
  * @version v1
  */
@@ -55,7 +58,7 @@ export class PathsService {
 
 
   /**
-   * Demande de récupération d'un pathavec son nom
+   * Demande de récupération d'un path avec son nom
    * 
    * @param name nom du path recherché
    * @returns Le path recherché, si il existe, sinon null
@@ -67,8 +70,25 @@ export class PathsService {
     return await Path.findOneBy({name});
   }
 
-  async update(id: number, updatePathDto: UpdatePathDto) {
-    return `This action updates a #${id} path`;
+  /**
+   * Demande de modification d'un path
+   * 
+   * @param id Identifiant du path à modifier
+   * @param updatePathDto parametre de modification du path
+   * @returns le path modifié
+   * 
+   * @version v1
+   */
+  async update(id: number, updatePathDto: UpdatePathDto) : Promise<Path | null>
+  {
+    const path = await this.findOneById(id) ;
+    if (path)
+    {
+      updatePathDto.name      && (path.name     = updatePathDto.name      ) ;
+      updatePathDto.viewbox   && (path.viewbox  = updatePathDto.viewbox   ) ;
+      updatePathDto.d         && (path.d        = updatePathDto.d         ) ;
+    }
+    return path;
   }
 
   async remove(id: number) {
