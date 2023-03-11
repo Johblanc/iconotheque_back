@@ -11,22 +11,24 @@ import { User } from './entities/user.entity';
  * Routage et contrôle des requete pour la table users
  * 
  * * **register** : Demande d'enregistrement d'un utilisateur
+ * * **login** :Demande de d'authentification d'un utilisateur
  * 
  * @version v1
  */
 @Controller('users')
 export class UsersController {
   constructor(
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService
     ) {}
 
   /**
    * Demande d'enregistrement d'un utilisateur
    * 
-   * @param createUserDto — parametre de création d'un utilisateur
-   * @returns — le nouvel utilisateur
+   * @param createUserDto parametre de création d'un utilisateur
+   * @returns le nouvel utilisateur
    * 
-   * @version — v1
+   * @version v1
    */
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
@@ -49,6 +51,23 @@ export class UsersController {
     return {
       message: `${createUserDto.name} bien enregistré`,
       data: newUser,
+    };
+  }
+
+  /**
+   * Demande de d'authentification d'un utilisateur (Voir LocalAuthGuard)
+   * 
+   * @param user L'utilidateur donné par le token
+   * @returns L'utilidateur et le token
+   * 
+   * @version v1
+   */
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  async login(@GetUser() user : User) {
+    return {
+      message : "Vous êtes connecté" ,
+      data : {...user, token : this.authService.token(user)}
     };
   }
 
