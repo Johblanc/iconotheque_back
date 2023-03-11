@@ -8,6 +8,7 @@ import { Path } from './entities/path.entity';
  * Liaison avec la table paths de la BDD
  * 
  * @v1 **create**         : Demande de création d'un path
+ * @v1 **findAll**        : Demande de récupération de tous les paths
  * 
  * @version v1
  */
@@ -27,8 +28,16 @@ export class PathsService {
     return await Path.create({...createPathDto}).save();
   }
 
-  async findAll() {
-    return `This action returns all paths`;
+  /**
+   * Demande de récupération de tous les paths
+   * 
+   * @returns Liste de tous les paths
+   * 
+   * @version v1
+   */
+  async findAll() : Promise<Path[]>
+  {
+    return await Path.find();
   }
 
   async findOne(id: number) {
