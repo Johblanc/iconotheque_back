@@ -1,7 +1,8 @@
 import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import { ClassSerializerInterceptor } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './errors/AllExceptionsFilter';
 import { ResponserInterceptor } from './interceptors/responser.interceptor';
@@ -33,6 +34,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.use(helmet());
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.useGlobalInterceptors(new ResponserInterceptor());
 
   await app.listen(8000);
