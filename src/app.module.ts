@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { PathsModule } from './paths/paths.module';
 import { User } from './users/entities/user.entity';
 import { Path } from './paths/entities/path.entity';
+import { AuthModule } from './auth/auth.module';
 
 /**
  * Permet la liaison entre la base de données, les Entities et les Controleurs.
@@ -24,15 +23,14 @@ import { Path } from './paths/entities/path.entity';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       entities: [
-        User,
+        User, 
         Path
       ],
       synchronize: true,
     }),
     UsersModule,
     PathsModule,
+    AuthModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
