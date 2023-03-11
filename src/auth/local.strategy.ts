@@ -6,6 +6,8 @@ import { AuthService } from './auth.service';
 
 /**
  * Vérification des parametres de l'utilisateur lors du login
+ * 
+ * @version v1
  */
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
