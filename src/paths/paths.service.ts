@@ -12,6 +12,7 @@ import { Path } from './entities/path.entity';
  * @v1 **findOneById**    : Demande de récupération d'un path avec son id
  * @v1 **findOneByName**  : Demande de récupération d'un path avec son nom
  * @v1 **update**         : Demande de modification d'un path
+ * @v1 **update**         : Demande de suppression d'un path
  * 
  * @version v1
  */
