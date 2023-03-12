@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
-  Request,
+  Bind,
 } from '@nestjs/common';
 import { PathsService } from './paths.service';
 import { CreatePathDto } from './dto/create-path.dto';
@@ -15,11 +15,14 @@ import { UpdatePathDto } from './dto/update-path.dto';
 import { AdminAuthGuard } from 'src/auth/admin_guard/admin-auth.guard';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/users/entities/user.entity';
+import { UserAuthGuard } from 'src/auth/user_guard/user-auth.guard';
+import { ParseIntPipe } from '@nestjs/common/pipes';
 
 /**
  * Routage et contrôle des requete pour la table paths
  *
- * * **create** : Demande de création d'un path
+ * @v1 **create**           : Demande de création d'un path
+ * @v1 **findAllPublics**   : Demande de récupération des paths publiques
  *
  * @version v1
  */
@@ -41,7 +44,23 @@ export class PathsController {
   async create(@Body() createPathDto: CreatePathDto, @GetUser() user: User) {
     return {
       message: "Création d'un nouveau Path",
-      data: await this.pathsService.create(createPathDto, user),
+      data: await this.pathsService.create(createPathDto, user)
+    };
+  }
+
+  /**
+   * Demande de récupération des paths publiques
+   * 
+   * @returns les paths publiques
+   * 
+   * @version v1
+   */
+  @UseGuards(UserAuthGuard)
+  @Get()
+  async findAllPublics() {
+    return {
+      message: "Récupération des paths publiques",
+      data: await this.pathsService.findAllPublics()
     };
   }
 
