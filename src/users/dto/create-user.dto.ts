@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsEmail } from "class-validator";
+import { IsString, IsEmail, IsNotEmpty } from "class-validator";
 
 /**
  * Contrôle des paramètres de création d'un utilisateur
@@ -10,6 +10,7 @@ export class CreateUserDto {
 
   @ApiProperty()
   @IsString()
+  @IsNotEmpty()
   name : string ;
 
   @ApiProperty()
@@ -18,6 +19,7 @@ export class CreateUserDto {
 
   @ApiProperty()
   @IsString()
+  @IsNotEmpty()
   password : string ;
 
 }
