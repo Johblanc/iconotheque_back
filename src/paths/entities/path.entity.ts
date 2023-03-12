@@ -25,7 +25,7 @@ export class Path extends BaseEntity {
 
   /** Status du Path "public" ou "private" */
   @ApiProperty()
-  @Column({ type : "enum" , enum : PathStatus })
+  @Column({ type : "enum" , enum : PathStatus , default : PathStatus.PRIVATE})
   status : PathStatus ;
 
   /** Chemin du Path */
@@ -34,7 +34,7 @@ export class Path extends BaseEntity {
   d : string ;
 
 
-  /** Chemin du Path */
+  /** Cadre du Path */
   @ApiProperty()
   @Column({type : "varchar"})
   viewbox : string ;
