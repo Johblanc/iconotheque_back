@@ -3,17 +3,19 @@ import { User } from 'src/users/entities/user.entity';
 import { CreatePathDto } from './dto/create-path.dto';
 import { UpdatePathDto } from './dto/update-path.dto';
 import { Path } from './entities/path.entity';
+import { PathStatus } from './Types/PathStatus';
 
 
 /**
  * Liaison avec la table paths de la BDD
  * 
- * @v1 **create**         : Demande de création d'un path
- * @v1 **findAll**        : Demande de récupération de tous les paths
- * @v1 **findOneById**    : Demande de récupération d'un path avec son id
- * @v1 **findOneByName**  : Demande de récupération d'un path avec son nom
- * @v1 **update**         : Demande de modification d'un path
- * @v1 **update**         : Demande de suppression d'un path
+ * @v1 **create**           : Demande de création d'un path
+ * @v1 **findAllPublics**   : Demande de récupération de tous les paths publiques
+ * @v1 **findAllPrivates**  : Demande de récupération de tous les paths privés d'un user
+ * @v1 **findOneById**      : Demande de récupération d'un path avec son id
+ * @v1 **findOneByName**    : Demande de récupération d'un path avec son nom
+ * @v1 **update**           : Demande de modification d'un path
+ * @v1 **update**           : Demande de suppression d'un path
  * 
  * @version v1
  */
@@ -35,15 +37,27 @@ export class PathsService {
   }
 
   /**
-   * Demande de récupération de tous les paths
+   * Demande de récupération de tous les paths publiques
    * 
-   * @returns Liste de tous les paths
+   * @returns Liste de tous les paths publiques
    * 
    * @version v1
    */
-  async findAll() : Promise<Path[]>
+  async findAllPublics() : Promise<Path[]>
   {
-    return await Path.find();
+    return await Path.findBy({status : PathStatus.PUBLIC});
+  }
+
+  /**
+   * Demande de récupération de tous les paths privés d'un user
+   * 
+   * @returns Liste de tous les paths publiques
+   * 
+   * @version v1
+   */
+  async findAllPrivates(user : User) : Promise<Path[]>
+  {
+    return await Path.findBy({status : PathStatus.PRIVATE,user : {id : user.id}});
   }
 
   /**
