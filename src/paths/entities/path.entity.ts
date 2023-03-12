@@ -20,7 +20,7 @@ export class Path extends BaseEntity {
 
   /** Nom du Path */
   @ApiProperty()
-  @Column({type : "varchar", unique : true})
+  @Column({type : "varchar"})
   name : string ;
 
   /** Status du Path "public" ou "private" */
