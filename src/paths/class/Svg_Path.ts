@@ -7,7 +7,7 @@ import { PathPoint } from './PathPoint';
  * @version v1
  * */
 export class SvgPath {
-  
+
   /**
    * Methode permetant de vérifier le drawn d'un path
    *
@@ -28,18 +28,20 @@ export class SvgPath {
         let targetLength = Format.keysLength(curItem);
         for (let i = 0; i < targetLength; i += 1) {
           curValue = splitPath.shift();
-          result += curValue + ' ';
 
           if (!curValue) {
-            return `Vérifié jusqu'à : ${result}\nLe point ${curItem} doit avoir ${targetLength} attribut(s)`;
-          } else if (Format.isFormat(curValue)) {
-            return `Vérifié jusqu'à : ${result}\n${curItem} ne contient pas le bon nombre de points (${targetLength} attribut(s) / points)`;
-          } else if (isNaN(Number(curValue))) {
-            return `Vérifié jusqu'à : ${result}\n${curValue} n'est pas un nombre`;
+            return `d vérifié jusqu'à : ${result}\nLe point ${curItem} doit avoir ${targetLength} attribut(s)`;
           }
+          if (Format.isFormat(curValue)) {
+            return `d vérifié jusqu'à : ${result}\n${curItem} ne contient pas le bon nombre de points (${targetLength} attribut(s) / points)`;
+          }
+          if (isNaN(Number(curValue))) {
+            return `d vérifié jusqu'à : ${result}\n${curValue} n'est pas un nombre ou un format`;
+          }
+          result += curValue + ' ';
         }
       } else {
-        return `Vérifié jusqu'à : ${result}\n${curValue} : Les points doivent commencer par M, m, L, l, H, h, V, v, C, c, S, s, Q, q, T, t, A, a, Z ou z`;
+        return `d vérifié jusqu'à : ${result}\n${curValue} : Les points doivent commencer par M, m, L, l, H, h, V, v, C, c, S, s, Q, q, T, t, A, a, Z ou z`;
       }
     }
     return '';
