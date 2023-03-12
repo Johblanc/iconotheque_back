@@ -24,7 +24,7 @@ export class User extends BaseEntity {
 
   /** Mail de l'Utilisateur */
   @ApiProperty()
-  @Column({type : "varchar", unique : true})
+  @Column({type : "varchar", unique : true, select : false})
   mail : string ;
 
   /** Le mot de passe de l'Utilisateur */
