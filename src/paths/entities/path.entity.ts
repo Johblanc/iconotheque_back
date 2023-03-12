@@ -41,7 +41,7 @@ export class Path extends BaseEntity {
 
   /** l'Auteur du path */
   @ApiProperty()
-  @ManyToOne(()=> User, (user)=> user.paths)
+  @ManyToOne(()=> User, (user)=> user.paths,{eager : true})
   user : User ;
 
 }

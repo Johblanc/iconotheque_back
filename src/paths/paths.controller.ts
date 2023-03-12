@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   Bind,
+  NotFoundException,
 } from '@nestjs/common';
 import { PathsService } from './paths.service';
 import { CreatePathDto } from './dto/create-path.dto';
@@ -17,6 +18,7 @@ import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/users/entities/user.entity';
 import { UserAuthGuard } from 'src/auth/user_guard/user-auth.guard';
 import { ParseIntPipe } from '@nestjs/common/pipes';
+import { ForbiddenException } from '@nestjs/common/exceptions';
 
 /**
  * Routage et contrôle des requete pour la table paths
@@ -24,6 +26,7 @@ import { ParseIntPipe } from '@nestjs/common/pipes';
  * @v1 **create**           : Demande de création d'un path
  * @v1 **findAllPublics**   : Demande de récupération des paths publiques
  * @v1 **findAllPrivates**  : Demande de récupération des paths privés d'un utilisateur
+ * @v1 **update**           : Demande de modification d'un path
  *
  * @version v1
  */
@@ -79,6 +82,36 @@ export class PathsController {
     return {
       message: "Récupération de vos paths privés",
       data: await this.pathsService.findAllPrivates(user)
+    };
+  }
+
+  /**
+   * Demande de modification d'un path
+   * 
+   * @param id identifiant du path à modifier
+   * @param user Demandeur
+   * @param updatePathDto paramètres de modification du path
+   * @returns Le path modifié
+   * 
+   * @version v1
+   */
+  @UseGuards(AdminAuthGuard)
+  @Patch(':id')
+  @Bind(Param('id', ParseIntPipe))
+  async update(@Param('id') id: string, @GetUser() user: User, @Body() updatePathDto: UpdatePathDto) {
+
+    const path = await this.pathsService.findOneById(+id)
+
+    if (path === null){
+      throw new NotFoundException("Ce path n'existe pas")
+    }
+    if (path.user.id !== user.id){
+      throw new ForbiddenException("Ce path ne vous appartient pas")
+    }
+
+    return {
+      message: "Modification du Path",
+      data: await this.pathsService.update(+id, updatePathDto)
     };
   }
 
