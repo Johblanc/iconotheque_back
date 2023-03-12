@@ -23,6 +23,7 @@ import { ParseIntPipe } from '@nestjs/common/pipes';
  *
  * @v1 **create**           : Demande de création d'un path
  * @v1 **findAllPublics**   : Demande de récupération des paths publiques
+ * @v1 **findAllPrivates**  : Demande de récupération des paths privés d'un utilisateur
  *
  * @version v1
  */
@@ -61,6 +62,23 @@ export class PathsController {
     return {
       message: "Récupération des paths publiques",
       data: await this.pathsService.findAllPublics()
+    };
+  }
+
+  /**
+   * Demande de récupération des paths privés d'un utilisateur
+   * 
+   * @param user Demandeur
+   * @returns les paths privés du demandeur
+   * 
+   * @version v1
+   */
+  @UseGuards(AdminAuthGuard)
+  @Get('privates')
+  async findAllPrivates(@GetUser() user: User) {
+    return {
+      message: "Récupération de vos paths privés",
+      data: await this.pathsService.findAllPrivates(user)
     };
   }
 
