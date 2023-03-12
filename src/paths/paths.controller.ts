@@ -145,4 +145,32 @@ export class PathsController {
     };
   }
 
+  /**
+   * Demande de suppression d'un path
+   * 
+   * @param id identifiant du path à supprimer
+   * @param user Demandeur
+   * @returns Le Path supprimé
+   * 
+   * @version v1
+   */
+  @UseGuards(AdminAuthGuard)
+  @Delete(':id')
+  @Bind(Param('id', ParseIntPipe))
+  async remove(@Param('id') id: string, @GetUser() user: User) {
+
+    const path = await this.pathsService.findOneById(+id)
+
+    if (path === null){
+      throw new NotFoundException("Ce path n'existe pas")
+    }
+    if (path.user.id !== user.id){
+      throw new ForbiddenException("Ce path ne vous appartient pas")
+    }
+
+    return {
+      message: "Suppression du Path",
+      data: await this.pathsService.remove(+id)
+    };
+  }
 }
