@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { User } from 'src/users/entities/user.entity';
 import { CreatePathDto } from './dto/create-path.dto';
 import { UpdatePathDto } from './dto/update-path.dto';
 import { Path } from './entities/path.entity';
@@ -23,13 +24,14 @@ export class PathsService {
    * Demande de création d'un path
    * 
    * @param createPathDto Parametres de création d'un path
+   * @param user l'auteur du path
    * @returns Le nouveau path
    * 
    * @version v1
    */
-  async create(createPathDto: CreatePathDto) : Promise<Path>
+  async create(createPathDto: CreatePathDto, user : User) : Promise<Path>
   {
-    return await Path.create({...createPathDto}).save();
+    return await Path.create({...createPathDto, user}).save();
   }
 
   /**
