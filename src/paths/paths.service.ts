@@ -15,7 +15,8 @@ import { PathStatus } from './Types/PathStatus';
  * @v1 **findOneById**      : Demande de récupération d'un path avec son id
  * @v1 **findOneByName**    : Demande de récupération d'un path avec son nom
  * @v1 **update**           : Demande de modification d'un path
- * @v1 **update**           : Demande de suppression d'un path
+ * @v1 **publish**          : Demande de modification d'un path
+ * @v1 **delete**           : Demande de suppression d'un path
  * 
  * @version v1
  */
@@ -109,10 +110,28 @@ export class PathsService {
   }
 
   /**
+   * Demande de publication d'un path
+   * 
+   * @param id Identifiant du path à publier
+   * @returns le path publié
+   * 
+   * @version v1
+   */
+  async publish(id: number) : Promise<Path | null>
+  {
+    const path = await this.findOneById(id) ;
+    if (path)
+    {
+      path.status = PathStatus.PUBLIC ;
+      await path.save()
+    }
+    return path;
+  }
+
+  /**
    * Demande de suppression d'un path
    * 
    * @param id Identifiant du path à supprimer
-   * @returns 
    * @returns le path supprimé
    * 
    * @version v1

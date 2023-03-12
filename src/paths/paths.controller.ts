@@ -27,6 +27,7 @@ import { ForbiddenException } from '@nestjs/common/exceptions';
  * @v1 **findAllPublics**   : Demande de récupération des paths publiques
  * @v1 **findAllPrivates**  : Demande de récupération des paths privés d'un utilisateur
  * @v1 **update**           : Demande de modification d'un path
+ * @v1 **publish**          : Demande de publication d'un path
  *
  * @version v1
  */
@@ -112,6 +113,35 @@ export class PathsController {
     return {
       message: "Modification du Path",
       data: await this.pathsService.update(+id, updatePathDto)
+    };
+  }
+
+  /**
+   * Demande de publication d'un path
+   * 
+   * @param id identifiant du path à publier
+   * @param user Demandeur
+   * @returns Le path publié
+   * 
+   * @version v1
+   */
+  @UseGuards(AdminAuthGuard)
+  @Patch('publish/:id')
+  @Bind(Param('id', ParseIntPipe))
+  async publish(@Param('id') id: string, @GetUser() user: User) {
+
+    const path = await this.pathsService.findOneById(+id)
+
+    if (path === null){
+      throw new NotFoundException("Ce path n'existe pas")
+    }
+    if (path.user.id !== user.id){
+      throw new ForbiddenException("Ce path ne vous appartient pas")
+    }
+
+    return {
+      message: "Publication du Path",
+      data: await this.pathsService.publish(+id)
     };
   }
 
