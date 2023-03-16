@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AuthService } from 'src/auth/auth.service';
 import * as bcrypt from 'bcrypt';
-import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { LocalAuthGuard } from 'src/auth/local_guard/local-auth.guard';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from './entities/user.entity';
 

@@ -2,7 +2,7 @@ import { forwardRef, Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from './local.strategy';
+import { LocalStrategy } from './local_guard/local.strategy';
 import { JwtModule } from '@nestjs/jwt/dist';
 import { ConfigModule } from '@nestjs/config';
 import { UserStrategy } from './user_guard/user.strategy';
