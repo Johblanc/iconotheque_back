@@ -103,9 +103,9 @@ export class PathsService {
     const path = await this.findOneById(id) ;
     if (path)
     {
-      updatePathDto.name      && (path.name     = updatePathDto.name      ) ;
-      updatePathDto.viewbox   && (path.viewbox  = updatePathDto.viewbox   ) ;
-      updatePathDto.d         && (path.d        = updatePathDto.d         ) ;
+      if(updatePathDto.name)      path.name     = updatePathDto.name       ;
+      if(updatePathDto.viewbox)   path.viewbox  = updatePathDto.viewbox    ;
+      if(updatePathDto.d)         path.d        = updatePathDto.d          ;
       await path.save()
     }
     return path;

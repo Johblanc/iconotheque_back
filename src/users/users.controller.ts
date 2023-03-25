@@ -98,8 +98,8 @@ export class UsersController {
     }
     if (dto.mail){
       const mailExist = await this.usersService.findOneByMail(dto.mail);
-  
-      if (mailExist) {
+      
+      if (mailExist && mailExist.mail !== user.mail) {
         throw new ConflictException("Ce Mail est déjà enregistré");
       }
     }
@@ -107,10 +107,11 @@ export class UsersController {
       dto.password = await bcrypt.hash(dto.password, 10);
     }
 
-    const updateUser = await this.usersService.update(user,dto)
+    const {password,...updateUser} = await this.usersService.update(user,dto)
+    
     return {
       message : "Profile mis à jour" ,
-      data : updateUser
+      data : {...updateUser, token : this.authService.token(user)}
     };
   }
 

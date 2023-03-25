@@ -59,7 +59,16 @@ export class UsersService {
    * @version v1
    */
   async findOneByMail(mail: string): Promise<User | null> {
-    return await User.findOneBy({ mail });
+    return await User.findOne({
+      where: { mail },
+      select: {
+        id: true,
+        name: true,
+        password: true,
+        mail: true,
+        access: true,
+      },
+    });
   }
 
   /**

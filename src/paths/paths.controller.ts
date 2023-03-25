@@ -167,10 +167,10 @@ export class PathsController {
     if (path.user.id !== user.id){
       throw new ForbiddenException("Ce path ne vous appartient pas")
     }
-
+    await this.pathsService.remove(+id)
     return {
       message: "Suppression du Path",
-      data: await this.pathsService.remove(+id)
+      data: path
     };
   }
 }
