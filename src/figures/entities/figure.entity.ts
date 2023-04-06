@@ -21,14 +21,14 @@ export class Figure extends BaseEntity {
   @Column({type : "int"})
   order : number ;
 
-  /** Path de la Figure */
-  @ApiProperty()
-  @ManyToOne(()=> Path, (path)=> path.figures,{eager : true})
-  path : Path ;
-
   /** Icône de la Figure */
   @ApiProperty()
   @ManyToOne(()=> Icon, (icon)=> icon.figures)
   icon : Icon ;
+
+  /** Path de la Figure */
+  @ApiProperty()
+  @ManyToOne(()=> Path, (path)=> path.figures,{eager : true})
+  path : Path ;
 
 }

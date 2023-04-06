@@ -35,7 +35,7 @@ export class Icon extends BaseEntity {
 
   /** Les Figures liées à cette Icône */
   @ApiProperty()
-  @OneToMany(()=> Figure, (figure)=> figure.path)
+  @OneToMany(()=> Figure, (figure)=> figure.path,{eager : true})
   figures : Figure[] ;
   
   /** l'Auteur de l'Icône */
