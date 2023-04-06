@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { PathStatus } from "src/paths/Types/PathStatus";
 import { User } from "src/users/entities/user.entity";
+import { Viewbox } from "src/viewboxes/entities/viewbox.entity";
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 /**
@@ -25,6 +26,11 @@ export class Icon extends BaseEntity {
   @ApiProperty()
   @Column({ type : "enum" , enum : PathStatus , default : PathStatus.PRIVATE})
   status : PathStatus ;
+
+  /** Cadre de l'Icône */
+  @ApiProperty()
+  @ManyToOne(()=> Viewbox, (viewbox)=> viewbox.icons,{eager : true})
+  viewbox : Viewbox ;
   
   /** l'Auteur de l'Icône */
   @ApiProperty()

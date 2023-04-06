@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Icon } from "src/icons/entities/icon.entity";
 import { Path } from "src/paths/entities/path.entity";
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -25,6 +26,12 @@ export class Viewbox extends BaseEntity {
   @ApiProperty()
   @OneToMany(()=> Path, (path)=> path.viewbox)
   paths : Path[] ;
+
+
+  /** Icônes liées à cette ViewBox */
+  @ApiProperty()
+  @OneToMany(()=> Icon, (icon)=> icon.viewbox)
+  icons : Icon[] ;
 
   /** Format de donnée de la ViewBox */
   asData()
