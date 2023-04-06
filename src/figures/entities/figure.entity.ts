@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Aspect } from "src/aspects/entities/aspect.entity";
 import { Icon } from "src/icons/entities/icon.entity";
 import { Path } from "src/paths/entities/path.entity";
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -30,5 +31,10 @@ export class Figure extends BaseEntity {
   @ApiProperty()
   @ManyToOne(()=> Path, (path)=> path.figures,{eager : true})
   path : Path ;
+
+  /** Aspect de la Figure */
+  @ApiProperty()
+  @ManyToOne(()=> Aspect, (aspect)=> aspect.figures,{eager : true})
+  aspect : Aspect ;
 
 }
