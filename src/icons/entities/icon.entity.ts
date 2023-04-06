@@ -1,8 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Figure } from "src/figures/entities/figure.entity";
 import { PathStatus } from "src/paths/Types/PathStatus";
 import { User } from "src/users/entities/user.entity";
 import { Viewbox } from "src/viewboxes/entities/viewbox.entity";
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 /**
  * Un Dessin SVG
@@ -31,6 +32,11 @@ export class Icon extends BaseEntity {
   @ApiProperty()
   @ManyToOne(()=> Viewbox, (viewbox)=> viewbox.icons,{eager : true})
   viewbox : Viewbox ;
+
+  /** Les Figures liées à cette Icône */
+  @ApiProperty()
+  @OneToMany(()=> Figure, (figure)=> figure.path)
+  figures : Figure[] ;
   
   /** l'Auteur de l'Icône */
   @ApiProperty()
