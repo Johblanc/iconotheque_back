@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { User } from "src/users/entities/user.entity";
+import { Viewbox } from "src/viewboxes/entities/viewbox.entity";
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PathStatus } from "../Types/PathStatus";
 
@@ -7,7 +8,7 @@ import { PathStatus } from "../Types/PathStatus";
 /**
  * Un path SVG
  * 
- * @version v1
+ * @version v2
  */
 @Entity("paths")
 
@@ -20,7 +21,7 @@ export class Path extends BaseEntity {
 
   /** Nom du Path */
   @ApiProperty()
-  @Column({type : "varchar"})
+  @Column()
   name : string ;
 
   /** Status du Path "public" ou "private" */
@@ -30,14 +31,14 @@ export class Path extends BaseEntity {
 
   /** Chemin du Path */
   @ApiProperty()
-  @Column({type : "varchar"})
+  @Column()
   d : string ;
 
 
   /** Cadre du Path */
   @ApiProperty()
-  @Column({type : "varchar"})
-  viewbox : string ;
+  @ManyToOne(()=> Viewbox, (viewbox)=> viewbox.paths,{eager : true})
+  viewbox : Viewbox ;
 
   /** l'Auteur du path */
   @ApiProperty()

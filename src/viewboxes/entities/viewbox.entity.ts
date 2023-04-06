@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Path } from "src/paths/entities/path.entity";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 /**
  * Une ViewBox de SVG
@@ -18,6 +19,12 @@ export class Viewbox extends BaseEntity {
   @ApiProperty()
   @Column({unique : true})
   value : string ;
+
+
+  /** Paths liés à cette ViewBox */
+  @ApiProperty()
+  @OneToMany(()=> Path, (path)=> path.viewbox)
+  paths : Path[] ;
 
   /** Format de donnée de la ViewBox */
   asData()
