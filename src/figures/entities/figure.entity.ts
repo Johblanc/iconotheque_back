@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Path } from "src/paths/entities/path.entity";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 /**
  * Une Figure pour une Icone SVG
@@ -19,5 +20,9 @@ export class Figure extends BaseEntity {
   @Column({type : "int"})
   order : number ;
 
+  /** Path  de la Figure */
+  @ApiProperty()
+  @ManyToOne(()=> Path, (path)=> path.figures,{eager : true})
+  path : Path ;
 
 }

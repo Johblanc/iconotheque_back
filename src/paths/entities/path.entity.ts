@@ -1,7 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Figure } from "src/figures/entities/figure.entity";
 import { User } from "src/users/entities/user.entity";
 import { Viewbox } from "src/viewboxes/entities/viewbox.entity";
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { PathStatus } from "../Types/PathStatus";
 
 
@@ -39,6 +40,12 @@ export class Path extends BaseEntity {
   @ApiProperty()
   @ManyToOne(()=> Viewbox, (viewbox)=> viewbox.paths,{eager : true})
   viewbox : Viewbox ;
+
+  /** Les Figures utilisant ce Path */
+  @ApiProperty()
+  @OneToMany(()=> Figure, (figure)=> figure.path)
+  figures : Figure[] ;
+
 
   /** l'Auteur du path */
   @ApiProperty()
