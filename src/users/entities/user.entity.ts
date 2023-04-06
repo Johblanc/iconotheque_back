@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
+import { Icon } from "src/icons/entities/icon.entity";
 import { Path } from "src/paths/entities/path.entity";
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -7,7 +8,7 @@ import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "t
 /**
  * Utilisateur de l'Api
  * 
- * @version v1
+ * @version v2
  */
 @Entity("users")
 export class User extends BaseEntity {
@@ -47,4 +48,9 @@ export class User extends BaseEntity {
   @ApiProperty()
   @OneToMany(()=> Path, (path)=> path.user)
   paths : Path[]
+
+  /** Liste des icônes de l'utilisateur */
+  @ApiProperty()
+  @OneToMany(()=> Icon, (icon)=> icon.user)
+  icons : Icon[]
 }

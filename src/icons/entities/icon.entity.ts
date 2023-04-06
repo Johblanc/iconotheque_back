@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { PathStatus } from "src/paths/Types/PathStatus";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/users/entities/user.entity";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 /**
  * Un Dessin SVG
@@ -10,19 +11,24 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity("icons")
 export class Icon extends BaseEntity {
 
-  /** Identifiant de l'Icone */
+  /** Identifiant de l'Icône */
   @ApiProperty()
   @PrimaryGeneratedColumn()
   id : number ;
 
-  /** Nom de l'Icone */
+  /** Nom de l'Icône */
   @ApiProperty()
   @Column()
   name : string ;
 
-  /** Status de l'Icone "public" ou "private" */
+  /** Status de l'Icône "public" ou "private" */
   @ApiProperty()
   @Column({ type : "enum" , enum : PathStatus , default : PathStatus.PRIVATE})
   status : PathStatus ;
+  
+  /** l'Auteur de l'Icône */
+  @ApiProperty()
+  @ManyToOne(()=> User, (user)=> user.icons,{eager : true})
+  user : User ;
   
 }
