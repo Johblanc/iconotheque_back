@@ -8,7 +8,12 @@ import { User } from './entities/user.entity';
  *
  * *@v1 **create**          : Demande de création d'un utilisateur
  * *@v1 **findOneByName**   : Trouver un utilisateur par son nom
+ * *@v1 **findOneById**     : Trouver un utilisateur par son identifiant
  * *@v1 **findOneByMail**   : Trouver un utilisateur par son mail
+ * *@v1 **findOneByToken**  : Trouver un utilisateur par token
+ * *@v1 **update**          : Mise à jour d'un utilisateur
+ * *@v1 **findAll**         : Récupération de tous les utilisateurs
+ * *@v1 **promote**         : Mise à jour d'un utilisateur
  *
  * @version v1
  */
@@ -39,7 +44,7 @@ export class UsersService {
   }
 
   /**
-   * Trouver un utilisateur par son nom
+   * Trouver un utilisateur par son identifiant
    *
    * @param id identifiant de l'utilisateur recherché
    * @returns l'utilisateur, si il existe, sinon null
@@ -126,7 +131,7 @@ export class UsersService {
   
 
   /**
-   * Récupération de tous les utilisateurs
+   * Promotion d'un utilisateur en Admin
    *
    * @returns Tous les utilisateurs
    *
