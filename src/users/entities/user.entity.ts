@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
+import { Aspect } from "src/aspects/entities/aspect.entity";
 import { Icon } from "src/icons/entities/icon.entity";
 import { Path } from "src/paths/entities/path.entity";
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -47,10 +48,15 @@ export class User extends BaseEntity {
   /** Liste des paths de l'utilisateur */
   @ApiProperty()
   @OneToMany(()=> Path, (path)=> path.user)
-  paths : Path[]
+  paths : Path[] ;
 
   /** Liste des icônes de l'utilisateur */
   @ApiProperty()
   @OneToMany(()=> Icon, (icon)=> icon.user)
-  icons : Icon[]
+  icons : Icon[] ;
+
+  /** Liste des aspects de l'utilisateur */
+  @ApiProperty()
+  @OneToMany(()=> Aspect, (aspect)=> aspect.user)
+  aspects : Aspect[] ;
 }

@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Figure } from "src/figures/entities/figure.entity";
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/users/entities/user.entity";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 /**
  * Apparence d'une Figure SVG
@@ -45,10 +46,14 @@ export class Aspect extends BaseEntity {
   @Column()
   stroke_width : number ;
 
-
   /** Les Figures utilisants cet Aspect */
   @ApiProperty()
   @OneToMany(()=> Figure, (figure)=> figure.aspect)
   figures : Figure[] ;
+
+  /** L'auteur de cet Aspect */
+  @ApiProperty()
+  @ManyToOne(()=> User, (user)=> user.aspects)
+  user : User ;
 
 }
