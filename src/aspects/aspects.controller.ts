@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Bind, ParseIntPipe } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common/exceptions';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { UserAuthGuard } from 'src/auth/user_guard/user-auth.guard';
 import { User } from 'src/users/entities/user.entity';
@@ -49,8 +50,33 @@ export class AspectsController {
   @Get()
   async findAll() {
     return {
-      message: "Récupération de tous les Aspect",
+      message: "Récupération de tous les Aspects",
       data: await this.aspectsService.findAll()
+    };
+  }
+
+
+  /**
+   * Demande de récupération d'un Aspect
+   * 
+   * @param id l'identifiant de l'aspect recherché
+   * @returns L'aspect recherché
+   *
+   * @version v2
+   */
+  @Get(':id')
+  @Bind(Param('id', ParseIntPipe))
+  async findOne(@Param('id') id: string) {
+
+    const aspect = await this.aspectsService.findOne(+id)
+
+    if (aspect === null ){
+      throw new NotFoundException("Cet aspect n'existe pas")
+    }
+
+    return {
+      message: "Récupération d'un Aspect",
+      data: aspect
     };
   }
 
