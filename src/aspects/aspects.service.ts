@@ -41,8 +41,17 @@ export class AspectsService {
     return await Aspect.find({relations : {user : true}});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} aspect`;
+
+  /**
+   * Demande de récupération d'un Aspect
+   * 
+   * @param id l'identifiant de l'aspect recherché
+   * @returns L'aspect recherché
+   * 
+   * @version v2
+   */
+  async findOne(id: number) {
+    return await Aspect.findOne({where :{id},relations : {user : true}});
   }
 
   update(id: number, updateAspectDto: UpdateAspectDto) {
