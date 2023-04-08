@@ -9,6 +9,7 @@ import { Aspect } from './entities/aspect.entity';
  * Liaison avec la table paths de la BDD
  * 
  * @v2 **create**           : Demande de création d'un path
+ * @v2 **findAll**          : Demande de récupération des Aspects
  * 
  * @version v2
  */
@@ -29,8 +30,15 @@ export class AspectsService {
     return await Aspect.create({...createAspectDto, user}).save();
   }
 
-  findAll() {
-    return `This action returns all aspects`;
+  /**
+   * Demande de récupération des Aspects
+   * 
+   * @returns La liste des Aspects
+   * 
+   * @version v2
+   */
+  async findAll() {
+    return await Aspect.find({relations : {user : true}});
   }
 
   findOne(id: number) {
