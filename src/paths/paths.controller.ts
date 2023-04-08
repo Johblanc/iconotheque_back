@@ -28,6 +28,7 @@ import { ForbiddenException } from '@nestjs/common/exceptions';
  * @v1 **findAllPrivates**  : Demande de récupération des paths privés d'un utilisateur
  * @v1 **update**           : Demande de modification d'un path
  * @v1 **publish**          : Demande de publication d'un path
+ * @v1 **remove**           : Demande de suppression d'un path
  *
  * @version v1
  */
