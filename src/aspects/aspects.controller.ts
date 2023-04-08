@@ -10,7 +10,7 @@ import { UpdateAspectDto } from './dto/update-aspect.dto';
  * Routage et contrôle des requete pour la table aspects
  *
  * @v2 **create**  : Demande de création d'un aspect
- * @v2 **findAll** : Demande de récupération des aspects du user
+ * @v2 **findAll** : Demande de récupération des aspects
  * @v2 **findOne** : Demande de récupération d'un aspect
  * @v2 **update**  : Demande de modification d'un path
  * @v2 **remove**  : Demande de suppression d'un path
@@ -34,14 +34,24 @@ export class AspectsController {
   @Post()
   async create(@Body() createAspectDto: CreateAspectDto, @GetUser() user: User) {
     return {
-      message: "Création d'un nouveau Path",
+      message: "Création d'un nouvel Aspect",
       data: await this.aspectsService.create(createAspectDto, user)
     };
   }
 
+  /**
+   * Demande de récupération des Aspects
+   * 
+   * @returns La liste des Aspects
+   *
+   * @version v2
+   */
   @Get()
-  findAll() {
-    return this.aspectsService.findAll();
+  async findAll() {
+    return {
+      message: "Récupération de tous les Aspect",
+      data: await this.aspectsService.findAll()
+    };
   }
 
 
