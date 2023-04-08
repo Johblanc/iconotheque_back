@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/get-user.decorator';
+import { UserAuthGuard } from 'src/auth/user_guard/user-auth.guard';
 import { User } from 'src/users/entities/user.entity';
 import { AspectsService } from './aspects.service';
 import { CreateAspectDto } from './dto/create-aspect.dto';
@@ -29,6 +30,7 @@ export class AspectsController {
    *
    * @version v2
    */
+  @UseGuards(UserAuthGuard)
   @Post()
   async create(@Body() createAspectDto: CreateAspectDto, @GetUser() user: User) {
     return {

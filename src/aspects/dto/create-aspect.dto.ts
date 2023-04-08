@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsHexColor, IsNumber, IsString, Max, Min } from "class-validator";
+import { IsHexColor, IsNumber, IsString, Length, Max, Min } from "class-validator";
 
 
 /**
@@ -18,6 +18,7 @@ export class CreateAspectDto {
   /** Couleur de remplissage */
   @ApiProperty()
   @IsHexColor()
+  @Length(7,7)
   fill_color : string ;
 
   /** Opacité de remplissage */
@@ -30,6 +31,7 @@ export class CreateAspectDto {
   /** Couleur de bordure */
   @ApiProperty()
   @IsHexColor()
+  @Length(7,7)
   stroke_color : string ;
 
   /** Opacité de bordure */
@@ -42,5 +44,6 @@ export class CreateAspectDto {
   /** Epaiseur de bordure */
   @ApiProperty()
   @IsNumber()
+  @Min(0)
   stroke_width : number ;
 }
