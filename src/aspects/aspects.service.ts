@@ -12,6 +12,7 @@ import { Aspect } from './entities/aspect.entity';
  * @v2 **findAll**          : Demande de récupération des Aspects
  * @v2 **findOne**          : Demande de récupération d'un Aspect
  * @v2 **update**           : Demande de modification d'un Aspect
+ * @v2 **remove**           : Demande de suppression d'un Aspect
  * 
  * @version v2
  */
@@ -77,7 +78,17 @@ export class AspectsService {
     return aspect;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} aspect`;
+  /**
+   * Demande de suppression d'un Aspect
+   * 
+   * @param id l'identifiant de l'aspect à supprimer
+   * @returns L'aspect supprimé
+   */
+  async remove(id: number) {
+    const aspect = await Aspect.findOne({where :{id},relations : {user : true}}) ;
+    if (aspect !== null) {
+      await aspect.remove()
+    }
+    return aspect;
   }
 }
