@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Bind, ParseIntPipe } from '@nestjs/common';
-import { NotFoundException } from '@nestjs/common/exceptions';
+import { ForbiddenException, NotFoundException } from '@nestjs/common/exceptions';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { UserAuthGuard } from 'src/auth/user_guard/user-auth.guard';
 import { User } from 'src/users/entities/user.entity';
@@ -80,12 +80,36 @@ export class AspectsController {
     };
   }
 
-
+  /**
+   * Demande de modification d'un Aspect
+   * 
+   * @param updateAspectDto paramètres de création d'un aspect
+   * @param id l'identifiant de l'aspect recherché
+   * @param user l'auteur
+   * @returns L'aspect modifié
+   *
+   * @version v2
+   */
+  @UseGuards(UserAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAspectDto: UpdateAspectDto) {
-    return this.aspectsService.update(+id, updateAspectDto);
-  }
+  async update(@Param('id') id: string, @Body() updateAspectDto: UpdateAspectDto, @GetUser() user: User) {
+    
+    const aspect = await this.aspectsService.findOne(+id)
 
+    if (aspect === null ){
+      throw new NotFoundException("Cet aspect n'existe pas")
+    }
+
+    if (user.id !== aspect.user.id ){
+      throw new ForbiddenException("Vous n'êtes pas autorisé à modifier cette aspect")
+    }
+
+    return {
+      message: "Modification d'un Aspect",
+      data: await this.aspectsService.update(+id, updateAspectDto)
+    } ;
+  }
+  
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.aspectsService.remove(+id);
