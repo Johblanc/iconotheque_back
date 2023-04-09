@@ -92,6 +92,7 @@ export class AspectsController {
    */
   @UseGuards(UserAuthGuard)
   @Patch(':id')
+  @Bind(Param('id', ParseIntPipe))
   async update(@Param('id') id: string, @Body() updateAspectDto: UpdateAspectDto, @GetUser() user: User) {
     
     const aspect = await this.aspectsService.findOne(+id)
@@ -109,9 +110,33 @@ export class AspectsController {
       data: await this.aspectsService.update(+id, updateAspectDto)
     } ;
   }
-  
+
+  /**
+   * Demande de suppresion d'un Aspect
+   * 
+   * @param id l'identifiant de l'aspect recherché
+   * @param user l'auteur
+   * @returns L'aspect supprimé
+   *
+   * @version v2
+   */
+  @UseGuards(UserAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.aspectsService.remove(+id);
+  @Bind(Param('id', ParseIntPipe))
+  async remove(@Param('id') id: string, @GetUser() user: User) {
+    
+    const aspect = await this.aspectsService.findOne(+id)
+
+    if (aspect === null ){
+      throw new NotFoundException("Cet aspect n'existe pas")
+    }
+
+    if (user.id !== aspect.user.id && user.access === 1 ){
+      throw new ForbiddenException("Vous n'êtes pas autorisé à modifier cette aspect")
+    }
+    return {
+      message: "Suppression d'un Aspect",
+      data: await this.aspectsService.remove(+id)
+    } ;
   }
 }
