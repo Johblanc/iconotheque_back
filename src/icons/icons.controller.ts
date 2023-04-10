@@ -12,6 +12,7 @@ import { User } from 'src/users/entities/user.entity';
  *
  * @v2 **create**           : Demande de création d'une Icône
  * @v2 **findAllPublics**   : Demande de récupération des icônes publiques
+ * @v2 **findAllPrivates**  : Demande de récupération de tous les icônes privées d'un user
  *
  * @version v2
  */
@@ -52,9 +53,21 @@ export class IconsController {
     };
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.iconsService.findOne(+id);
+  /**
+   * Demande de récupération de tous les icônes privées d'un user
+   * 
+   * @param user l'auteur des icônes
+   * @returns Liste de tous les icônes privées
+   * 
+   * @version v2
+   */
+  @UseGuards(UserAuthGuard)
+  @Get('privates')
+  async findAllPrivates(@GetUser() user: User) {
+    return {
+      message: "Récupération de vos icônes privées",
+      data: await this.iconsService.findAllPrivates(user)
+    };
   }
 
   @Patch(':id')
