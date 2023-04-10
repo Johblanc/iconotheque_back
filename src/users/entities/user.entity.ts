@@ -52,7 +52,7 @@ export class User extends BaseEntity {
 
   /** Le relief du theme de l'Utilisateur */
   @ApiProperty()
-  @Column()
+  @Column({type : "float"})
   theme_refief : number ;
 
   /** Liste des paths de l'utilisateur */
