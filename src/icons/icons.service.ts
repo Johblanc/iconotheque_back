@@ -15,6 +15,7 @@ import { Icon } from './entities/icon.entity';
  * @v2 **findOneById**      : Demande de récupération d'une icône avec son id
  * @v2 **update**           : Demande de modification d'une icône
  * @v2 **publish**          : Demande de publication d'une icône
+ * @v2 **remove**           : Demande de suppression d'une icône
  * 
  * @version v2
  */
@@ -95,7 +96,7 @@ export class IconsService {
    * @param id Identifiant de l'icône à publier
    * @returns L'icône publiée
    * 
-   * @version v1
+   * @version v2
    */
   async publish(id: number) : Promise<Icon | null>
   {
@@ -107,7 +108,21 @@ export class IconsService {
     return icon;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} icon`;
+  /**
+   * Demande de suppression d'une icône
+   * 
+   * @param id Identifiant de l'icône à supprimer
+   * @returns L'icône supprimé
+   * 
+   * @version v2
+   */
+  async remove(id: number) : Promise<Icon | null>
+  {
+    const icon = await this.findOneById(id) ;
+    if (icon)
+    {
+      await icon.remove()
+    }
+    return icon;
   }
 }
