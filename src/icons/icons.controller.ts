@@ -165,18 +165,19 @@ export class IconsController {
   @Bind(Param('id', ParseIntPipe))
   async remove(@Param('id') id: string, @GetUser() user: User) {
 
-    const path = await this.iconsService.findOneById(+id)
+    const icon = await this.iconsService.findOneById(+id)
 
-    if (path === null){
+    if (icon === null){
       throw new NotFoundException("Cette icône n'existe pas")
     }
-    if (path.user.id !== user.id && user.access === 1){
+    if (icon.user.id !== user.id && user.access === 1){
       throw new ForbiddenException("Cette icône ne vous appartient pas")
     }
+    await Promise.all([this.figuresService.removeAll(icon)])
     await this.iconsService.remove(+id)
     return {
       message: "Suppression de l'icône",
-      data: path
+      data: icon
     };
   }
   
