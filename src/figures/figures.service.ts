@@ -9,6 +9,7 @@ import { Figure } from './entities/figure.entity';
  * Liaison avec la table figures de la BDD
  * 
  * @v2 **create** : Demande d'ajout d'une figure à une icône
+ * @v2 **update** : Demande de modification d'une figure dans une icône
  * 
  * @version v2
  */
@@ -24,8 +25,10 @@ export class FiguresService {
    * @param order Position de la figure dans l'icône
    * 
    * @returns La nouvelle figure
+   * 
+   * @version v2
    */
-  async create(icon : Icon, path: Path, aspect : Aspect, order : number) {
+  async create(icon : Icon, path: Path, aspect : Aspect, order : number) : Promise<Figure> {
     
     if (order !== icon.figures.length + 1){
       await Promise.all([...icon.figures.map(
@@ -41,16 +44,37 @@ export class FiguresService {
     return await Figure.create({icon, path, aspect, order}).save() ;
   }
 
-  findAll() {
-    return `This action returns all figures`;
-  }
+  /**
+   * Demande de modification d'une figure dans une icône
+   * 
+   * @param icon icône dans laquelle on souhaite modifier la figure
+   * @param order Position actuelle de la figure dans l'icône
+   * @param path Nouveau path de la figure
+   * @param aspect Nouvel aspect de la figure
+   * @param newOrder Nouvelle Position de la figure dans l'icône
+   * 
+   * @returns La figure modifiée
+   * 
+   * @version v2
+   */
+  async update(icon : Icon, order : number, path: Path | null, aspect : Aspect | null, newOrder? : number) : Promise<Figure | null> {
+    const figure = await Figure.findOneBy({icon : { id : icon.id }, order}) ;
 
-  findOne(id: number) {
-    return `This action returns a #${id} figure`;
-  }
+    if (figure !== null) {
+      if (path !== null) figure.path = path ;
+      if (aspect !== null) figure.aspect = aspect ;
+      if (newOrder && newOrder !== order){
+        const switchFigure = await Figure.findOneBy({icon : { id : icon.id }, order : newOrder}) ;
+        if (switchFigure !== null) {
+          switchFigure.order = order
+          await Promise.all([await switchFigure.save()])
+        }
+        figure.order = newOrder ;
+      }
+      await figure.save()
+    }
 
-  update(id: number, updateFigureDto: UpdateFigureDto) {
-    return `This action updates a #${id} figure`;
+    return figure ;
   }
 
   remove(id: number) {
