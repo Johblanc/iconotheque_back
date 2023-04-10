@@ -15,6 +15,8 @@ import { ForbiddenException, NotFoundException } from '@nestjs/common/exceptions
  * @v2 **create**           : Demande de création d'une Icône
  * @v2 **findAllPublics**   : Demande de récupération des icônes publiques
  * @v2 **findAllPrivates**  : Demande de récupération de tous les icônes privées d'un user
+ * @v2 **update**           : Demande de modification d'une icône
+ * @v2 **publish**          : Demande de publication d'une icône
  *
  * @version v2
  */
@@ -103,6 +105,36 @@ export class IconsController {
       data: await this.iconsService.update(+id, updateIconDto)
     };
   }
+
+  /**
+   * Demande de publication d'une icône
+   * 
+   * @param id identifiant de l'icône à publier
+   * @param user Demandeur
+   * @returns L'icône publiée
+   * 
+   * @version v2
+   */
+  @UseGuards(UserAuthGuard)
+  @Patch('publish/:id')
+  @Bind(Param('id', ParseIntPipe))
+  async publish(@Param('id') id: string, @GetUser() user: User) {
+
+    const icon = await this.iconsService.findOneById(+id)
+
+    if (icon === null){
+      throw new NotFoundException("Cette icône n'existe pas")
+    }
+    if (icon.user.id !== user.id){
+      throw new ForbiddenException("Cette icône ne vous appartient pas")
+    }
+
+    return {
+      message: "Publication du l'Icône",
+      data: await this.iconsService.publish(+id)
+    };
+  }
+
 
   @Delete(':id')
   remove(@Param('id') id: string) {
