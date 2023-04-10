@@ -13,7 +13,6 @@ import {
 import { PathsService } from './paths.service';
 import { CreatePathDto } from './dto/create-path.dto';
 import { UpdatePathDto } from './dto/update-path.dto';
-import { AdminAuthGuard } from 'src/auth/admin_guard/admin-auth.guard';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/users/entities/user.entity';
 import { UserAuthGuard } from 'src/auth/user_guard/user-auth.guard';
@@ -45,7 +44,7 @@ export class PathsController {
    *
    * @version v1
    */
-  @UseGuards(AdminAuthGuard)
+  @UseGuards(UserAuthGuard)
   @Post()
   async create(@Body() createPathDto: CreatePathDto, @GetUser() user: User) {
     return {
@@ -61,7 +60,6 @@ export class PathsController {
    * 
    * @version v1
    */
-  @UseGuards(UserAuthGuard)
   @Get()
   async findAllPublics() {
     return {
@@ -78,7 +76,7 @@ export class PathsController {
    * 
    * @version v1
    */
-  @UseGuards(AdminAuthGuard)
+  @UseGuards(UserAuthGuard)
   @Get('privates')
   async findAllPrivates(@GetUser() user: User) {
     return {
@@ -97,7 +95,7 @@ export class PathsController {
    * 
    * @version v1
    */
-  @UseGuards(AdminAuthGuard)
+  @UseGuards(UserAuthGuard)
   @Patch(':id')
   @Bind(Param('id', ParseIntPipe))
   async update(@Param('id') id: string, @GetUser() user: User, @Body() updatePathDto: UpdatePathDto) {
@@ -126,7 +124,7 @@ export class PathsController {
    * 
    * @version v1
    */
-  @UseGuards(AdminAuthGuard)
+  @UseGuards(UserAuthGuard)
   @Patch('publish/:id')
   @Bind(Param('id', ParseIntPipe))
   async publish(@Param('id') id: string, @GetUser() user: User) {
@@ -155,7 +153,7 @@ export class PathsController {
    * 
    * @version v1
    */
-  @UseGuards(AdminAuthGuard)
+  @UseGuards(UserAuthGuard)
   @Delete(':id')
   @Bind(Param('id', ParseIntPipe))
   async remove(@Param('id') id: string, @GetUser() user: User) {
@@ -165,7 +163,7 @@ export class PathsController {
     if (path === null){
       throw new NotFoundException("Ce path n'existe pas")
     }
-    if (path.user.id !== user.id){
+    if (path.user.id !== user.id && user.access === 1){
       throw new ForbiddenException("Ce path ne vous appartient pas")
     }
     await this.pathsService.remove(+id)
