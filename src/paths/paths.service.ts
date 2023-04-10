@@ -52,7 +52,8 @@ export class PathsService {
   /**
    * Demande de récupération de tous les paths privés d'un user
    * 
-   * @returns Liste de tous les paths publiques
+   * @param user l'auteur des paths
+   * @returns Liste de tous les paths privés
    * 
    * @version v1
    */
