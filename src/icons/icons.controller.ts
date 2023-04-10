@@ -11,6 +11,7 @@ import { User } from 'src/users/entities/user.entity';
  * Routage et contrôle des requete pour la table icons
  *
  * @v2 **create**           : Demande de création d'une Icône
+ * @v2 **findAllPublics**   : Demande de récupération des icônes publiques
  *
  * @version v2
  */
@@ -36,9 +37,19 @@ export class IconsController {
     };
   }
 
+  /**
+   * Demande de récupération des icônes publiques
+   * 
+   * @returns les icônes publiques
+   * 
+   * @version v2
+   */
   @Get()
-  findAll() {
-    return this.iconsService.findAll();
+  async findAllPublics() {
+    return {
+      message: "Récupération des paths publiques",
+      data: await this.iconsService.findAllPublics()
+    };
   }
 
   @Get(':id')
