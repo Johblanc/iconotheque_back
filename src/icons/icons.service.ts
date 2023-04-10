@@ -54,8 +54,23 @@ export class IconsService {
     return await Icon.findBy({status : PathStatus.PRIVATE,user : {id : user.id}});
   }
 
-  update(id: number, updateIconDto: UpdateIconDto) {
-    return `This action updates a #${id} icon`;
+  /**
+   * Demande de modification d'une icône
+   * 
+   * @param id Identifiant de l'icône à modifier
+   * @param updateIconDto parametre de modification de l'icône
+   * @returns L'icône modifié
+   * 
+   * @version v2
+   */
+  async update(id: number, updateIconDto: UpdateIconDto) : Promise<Icon | null> {
+    const icon = await Icon.findOneBy({id}) ;
+    if (icon !== null) {
+      if (updateIconDto.name) icon.name = updateIconDto.name ;
+      if (updateIconDto.viewbox) icon.viewbox = updateIconDto.viewbox ;
+      await icon.save()
+    }
+    return icon;
   }
 
   remove(id: number) {
