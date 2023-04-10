@@ -55,6 +55,19 @@ export class IconsService {
   }
 
   /**
+   * Demande de récupération d'une icône avec son id
+   * 
+   * @param id Identifiant de l'icône recherchée
+   * @returns L'icône recherchée, si il existe, sinon null
+   * 
+   * @version v2
+   */
+  async findOneById(id: number) : Promise<Icon | null>
+  {
+    return await Icon.findOneBy({id});
+  }
+
+  /**
    * Demande de modification d'une icône
    * 
    * @param id Identifiant de l'icône à modifier
