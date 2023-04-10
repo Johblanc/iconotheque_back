@@ -17,6 +17,7 @@ import { ForbiddenException, NotFoundException } from '@nestjs/common/exceptions
  * @v2 **findAllPrivates**  : Demande de récupération de tous les icônes privées d'un user
  * @v2 **update**           : Demande de modification d'une icône
  * @v2 **publish**          : Demande de publication d'une icône
+ * @v2 **remove**           : Demande de suppression d'une icône
  *
  * @version v2
  */
@@ -135,9 +136,32 @@ export class IconsController {
     };
   }
 
-
+  /**
+   * Demande de suppression d'une icône
+   * 
+   * @param id identifiant de l'icône à supprimer
+   * @param user Demandeur
+   * @returns L'icône supprimée
+   * 
+   * @version v2
+   */
+  @UseGuards(UserAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.iconsService.remove(+id);
+  @Bind(Param('id', ParseIntPipe))
+  async remove(@Param('id') id: string, @GetUser() user: User) {
+
+    const path = await this.iconsService.findOneById(+id)
+
+    if (path === null){
+      throw new NotFoundException("Cette icône n'existe pas")
+    }
+    if (path.user.id !== user.id && user.access === 1){
+      throw new ForbiddenException("Cette icône ne vous appartient pas")
+    }
+    await this.iconsService.remove(+id)
+    return {
+      message: "Suppression de l'icône",
+      data: path
+    };
   }
 }
