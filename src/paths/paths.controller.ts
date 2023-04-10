@@ -22,14 +22,14 @@ import { ForbiddenException } from '@nestjs/common/exceptions';
 /**
  * Routage et contrôle des requete pour la table paths
  *
- * @v1 **create**           : Demande de création d'un path
- * @v1 **findAllPublics**   : Demande de récupération des paths publiques
- * @v1 **findAllPrivates**  : Demande de récupération des paths privés d'un utilisateur
- * @v1 **update**           : Demande de modification d'un path
- * @v1 **publish**          : Demande de publication d'un path
- * @v1 **remove**           : Demande de suppression d'un path
+ * @v2 **create**           : Demande de création d'un path
+ * @v2 **findAllPublics**   : Demande de récupération des paths publiques
+ * @v2 **findAllPrivates**  : Demande de récupération des paths privés d'un utilisateur
+ * @v2 **update**           : Demande de modification d'un path
+ * @v2 **publish**          : Demande de publication d'un path
+ * @v2 **remove**           : Demande de suppression d'un path
  *
- * @version v1
+ * @version v2
  */
 @Controller('paths')
 export class PathsController {
@@ -42,7 +42,7 @@ export class PathsController {
    * @param user l'auteur
    * @returns le nouveau path
    *
-   * @version v1
+   * @version v2
    */
   @UseGuards(UserAuthGuard)
   @Post()
@@ -58,7 +58,7 @@ export class PathsController {
    * 
    * @returns les paths publiques
    * 
-   * @version v1
+   * @version v2
    */
   @Get()
   async findAllPublics() {
@@ -74,7 +74,7 @@ export class PathsController {
    * @param user Demandeur
    * @returns les paths privés du demandeur
    * 
-   * @version v1
+   * @version v2
    */
   @UseGuards(UserAuthGuard)
   @Get('privates')
@@ -93,7 +93,7 @@ export class PathsController {
    * @param updatePathDto paramètres de modification du path
    * @returns Le path modifié
    * 
-   * @version v1
+   * @version v2
    */
   @UseGuards(UserAuthGuard)
   @Patch(':id')
@@ -122,7 +122,7 @@ export class PathsController {
    * @param user Demandeur
    * @returns Le path publié
    * 
-   * @version v1
+   * @version v2
    */
   @UseGuards(UserAuthGuard)
   @Patch('publish/:id')
@@ -151,7 +151,7 @@ export class PathsController {
    * @param user Demandeur
    * @returns Le Path supprimé
    * 
-   * @version v1
+   * @version v2
    */
   @UseGuards(UserAuthGuard)
   @Delete(':id')
