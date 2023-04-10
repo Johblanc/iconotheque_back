@@ -27,6 +27,7 @@ import { Aspect } from 'src/aspects/entities/aspect.entity';
  * @v2 **remove**           : Demande de suppression d'une icône
  * @v2 **addFigure**        : Demande d'ajout d'une figure dans une icône
  * @v2 **updateFigure**     : Demande de modification d'une figure dans une icône
+ * @v2 **removeFigure**     : Demande de suppression d'une figure dans une icône
  *
  * @version v2
  */
@@ -317,5 +318,48 @@ export class IconsController {
   }
 
 
-  // @Delete(':iconId/figures/:figureOrder')
+  /**
+   * Demande de suppression d'une figure dans une icône
+   * 
+   * @param iconId Identifiant de l'icône dans laquelle se trouve la figure
+   * @param figureOrder Position de la figure dans l'icône
+   * @param user l'auteur
+   * 
+   * @returns l'icône modifiée
+   *
+   * @version v2
+   */
+  @UseGuards(UserAuthGuard)
+  @Delete(':iconId/figures/:figureOrder')
+  @Bind(Param('iconId', ParseIntPipe))
+  @Bind(Param('figureOrder', ParseIntPipe))
+  async removeFigure(@Param('iconId') iconId: string,@Param('figureOrder') figureOrder: string, @GetUser() user: User) {
+
+    const icon = await this.iconsService.findOneById(+iconId) ;
+
+    if (icon === null) {
+      throw new NotFoundException("Cette icône n'existe pas") ;
+    } ;
+    if (icon.user.id !== user.id) {
+      throw new ForbiddenException("Vous n'avez pas accès à cette icône") ;
+    } ;
+    
+    if (+figureOrder > icon.figures.length){
+      throw new BadRequestException("la valeur de l'ordre est trop élevée") ;
+    } ;
+    
+    if (+figureOrder < 1){
+      throw new BadRequestException("la valeur de l'ordre est trop basse") ;
+    } ;
+
+    const figure = await this.figuresService.remove(icon, +figureOrder)
+
+    await Promise.all([figure])
+
+    return {
+      message: "Suppression d'une Figure",
+      data: await this.iconsService.findOneById(+iconId)
+    } ;
+  }
+
 }
