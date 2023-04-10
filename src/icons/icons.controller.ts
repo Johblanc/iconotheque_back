@@ -12,6 +12,9 @@ import { FiguresService } from 'src/figures/figures.service';
 import { CreateFigureDto } from 'src/figures/dto/create-figure.dto';
 import { PathsService } from 'src/paths/paths.service';
 import { AspectsService } from 'src/aspects/aspects.service';
+import { UpdateFigureDto } from 'src/figures/dto/update-figure.dto';
+import { Path } from 'src/paths/entities/path.entity';
+import { Aspect } from 'src/aspects/entities/aspect.entity';
 
 /**
  * Routage et contrôle des requete pour la table icons
@@ -23,6 +26,7 @@ import { AspectsService } from 'src/aspects/aspects.service';
  * @v2 **publish**          : Demande de publication d'une icône
  * @v2 **remove**           : Demande de suppression d'une icône
  * @v2 **addFigure**        : Demande d'ajout d'une figure dans une icône
+ * @v2 **updateFigure**     : Demande de modification d'une figure dans une icône
  *
  * @version v2
  */
@@ -182,7 +186,8 @@ export class IconsController {
    * @param iconId Identifiant de l'icône
    * @param createFormDto paramètres de création d'une Icône
    * @param user l'auteur
-   * @returns la nouvelle Icône
+   * 
+   * @returns l'icône modifiée
    *
    * @version v2
    */
@@ -231,13 +236,86 @@ export class IconsController {
     await Promise.all([figure])
 
     return {
-      message: "Création d'une nouvelle Icône",
+      message: "Création d'une nouvelle Figure",
       data: await this.iconsService.findOneById(+iconId)
     } ;
   }
 
-  
-  // @Get(':iconId/figures')
-  // @Patch(':iconId/figures/:figureOrder')
+  /**
+   * Demande de modification d'une figure dans une icône
+   * 
+   * @param iconId Identifiant de l'icône dans laquelle se trouve la figure
+   * @param figureOrder Position de la figure dans l'icône
+   * @param updateFigureDto Parametres de modification de la figure
+   * @param user l'auteur
+   * 
+   * @returns l'icône modifiée
+   *
+   * @version v2
+   */
+  @UseGuards(UserAuthGuard)
+  @Patch(':iconId/figures/:figureOrder')
+  @Bind(Param('iconId', ParseIntPipe))
+  @Bind(Param('figureOrder', ParseIntPipe))
+  async updateFigure(@Param('iconId') iconId: string,@Param('figureOrder') figureOrder: string, @Body() updateFigureDto: UpdateFigureDto, @GetUser() user: User) {
+
+    const icon = await this.iconsService.findOneById(+iconId) ;
+
+    if (icon === null) {
+      throw new NotFoundException("Cette icône n'existe pas") ;
+    } ;
+    if (icon.user.id !== user.id) {
+      throw new ForbiddenException("Vous n'avez pas accès à cette icône") ;
+    } ;
+    
+    if (+figureOrder > icon.figures.length){
+      throw new BadRequestException("la valeur de l'ordre est trop élevée") ;
+    } ;
+    
+    if (+figureOrder < 1){
+      throw new BadRequestException("la valeur de l'ordre est trop basse") ;
+    } ;
+
+    let path : Path | null = null ;
+    if (updateFigureDto.pathId){
+      path = await this.pathsService.findOneById(updateFigureDto.pathId) ;
+      if (path === null) {
+        throw new NotFoundException("Ce path n'existe pas") ;
+      } ;
+      if (path.user.id !== user.id) {
+        throw new ForbiddenException("Vous n'avez pas accès à ce path") ;
+      } ;
+    } ;
+    
+    let aspect : Aspect | null = null ;
+    if (updateFigureDto.aspectId) {
+      aspect = await this.aspectsService.findOne(updateFigureDto.aspectId) ;
+      if (aspect === null) {
+        throw new NotFoundException("Cet aspect n'existe pas") ;
+      } ;
+      if (aspect.user.id !== user.id) {
+        throw new ForbiddenException("Vous n'avez pas accès à cet aspect") ;
+      } ;
+    } ;
+
+    let order = updateFigureDto.order
+    
+    if (order){
+      if (order > icon.figures.length + 1){
+        throw new BadRequestException("la valeur de l'ordre est trop élevée") ;
+      } ;
+    } ;
+
+    const figure = await this.figuresService.update(icon, +figureOrder, path, aspect, order)
+
+    await Promise.all([figure])
+
+    return {
+      message: "Modification d'une Figure",
+      data: await this.iconsService.findOneById(+iconId)
+    } ;
+  }
+
+
   // @Delete(':iconId/figures/:figureOrder')
 }
