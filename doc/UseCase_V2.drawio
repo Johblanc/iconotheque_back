@@ -3126,7 +3126,7 @@
         </mxGraphModel>
     </diagram>
     <diagram name="Routes" id="oQ0TIiHmHgG0efGpeVeY">
-        <mxGraphModel dx="1885" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
+        <mxGraphModel dx="815" dy="1306" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
             <root>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-0"/>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-1" parent="pfrP-zV9QZ0klHFA-rlE-0"/>
@@ -3933,22 +3933,22 @@
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-149" value="Promouvoir User" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="491.2937662337662" y="934.8007042253521" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-150" value="Consulter Paths publiques" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FFFF00;fontColor=#FFFF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-150" value="Consulter Paths publiques" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="324.8781818181818" y="95.2149295774648" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-151" value="Consulter Icônes publiques" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FFFF00;fontColor=#FFFF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-151" value="Consulter Icônes publiques" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FF0000;fontColor=#FF0000;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="324.8781818181818" y="145.2149295774648" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-152" value="extend" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#404040;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="440" y="90" width="44.79" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-153" value="Selection Path" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FFFF00;fontColor=#FFFF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-153" value="Selection Path" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="495.1637662337662" y="95.21070422535209" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-154" value="Selection Icône" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FFFF00;fontColor=#FFFF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-154" value="Selection Icône" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FF0000;fontColor=#FF0000;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="495.1637662337662" y="145.2107042253521" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-155" value="Consulter Paths personnels" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FFFF00;fontColor=#FFFF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-155" value="Consulter Paths personnels" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="324.8781818181818" y="258.6749295774648" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-156" value="Consulter Icônes personnelles" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FF0000;fontColor=#FF0000;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
@@ -3957,7 +3957,7 @@
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-157" value="Consulter Aspects personnels" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;fontColor=#00FF00;strokeColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="324.8781818181818" y="369.1349295774647" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-158" value="Selection Path&lt;br style=&quot;font-size: 8px;&quot;&gt;personnel" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FFFF00;fontColor=#FFFF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-158" value="Selection Path&lt;br style=&quot;font-size: 8px;&quot;&gt;personnel" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="495.1637662337662" y="258.6707042253521" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-159" value="Selection Icône personnelle" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FF0000;fontColor=#FF0000;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
@@ -3966,7 +3966,7 @@
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-160" value="Selection Aspect personnelle" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;fontColor=#00FF00;strokeColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="545.1537662337662" y="369.130704225352" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-161" value="Créer un Path" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FFFF00;fontColor=#FFFF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-161" value="Créer un Path" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="324.8781818181818" y="313.53492957746477" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-162" value="Créer une Icones" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FF0000;fontColor=#FF0000;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
@@ -4236,7 +4236,7 @@
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-203" value="extend" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#404040;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="455.6" y="757.41" width="44.79" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-204" value="Publication du Path" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FFFF00;fontColor=#FFFF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-204" value="Publication du Path" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="670.0037662337661" y="223.81070422535208" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-205" value="" style="edgeStyle=orthogonalEdgeStyle;fontSize=8;html=1;endArrow=none;endFill=0;strokeColor=#404040;dashed=1;startArrow=openThin;startFill=0;" edge="1" parent="pfrP-zV9QZ0klHFA-rlE-1" source="pfrP-zV9QZ0klHFA-rlE-158" target="pfrP-zV9QZ0klHFA-rlE-207">
@@ -4249,7 +4249,7 @@
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-206" value="extend" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#404040;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="625.2099999999999" y="253.67" width="44.79" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-207" value="Modification du Path" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FFFF00;fontColor=#FFFF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-207" value="Modification du Path" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="670.0037662337661" y="258.6707042253521" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-208" value="" style="edgeStyle=orthogonalEdgeStyle;fontSize=8;html=1;endArrow=none;endFill=0;strokeColor=#404040;dashed=1;startArrow=openThin;startFill=0;" edge="1" parent="pfrP-zV9QZ0klHFA-rlE-1" source="pfrP-zV9QZ0klHFA-rlE-158" target="pfrP-zV9QZ0klHFA-rlE-211">
@@ -4275,7 +4275,7 @@
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-210" value="extend" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#404040;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="625.2099999999999" y="289.25" width="44.79" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-211" value="Suppression du Path" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FFFF00;fontColor=#FFFF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-211" value="Suppression du Path" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="670.0037662337661" y="293.5307042253521" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-212" value="extend" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#404040;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
@@ -4615,7 +4615,7 @@
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-270" value="Modifier mot de passe User" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="495.1637662337661" y="794.1807042253522" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-271" value="Modifier&lt;br style=&quot;font-size: 8px;&quot;&gt;theme User" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FF0000;fontColor=#FF0000;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-271" value="Modifier&lt;br style=&quot;font-size: 8px;&quot;&gt;theme User" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" vertex="1" parent="pfrP-zV9QZ0klHFA-rlE-1">
                     <mxGeometry x="495.1637662337661" y="829.0007042253523" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-272" value="" style="edgeStyle=orthogonalEdgeStyle;fontSize=8;html=1;endArrow=none;endFill=0;strokeColor=#404040;dashed=1;startArrow=openThin;startFill=0;" edge="1" parent="pfrP-zV9QZ0klHFA-rlE-1" source="pfrP-zV9QZ0klHFA-rlE-146" target="pfrP-zV9QZ0klHFA-rlE-270">
