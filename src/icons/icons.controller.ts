@@ -7,7 +7,11 @@ import { UserAuthGuard } from 'src/auth/user_guard/user-auth.guard';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/users/entities/user.entity';
 import { ParseIntPipe } from '@nestjs/common/pipes';
-import { ForbiddenException, NotFoundException } from '@nestjs/common/exceptions';
+import { BadRequestException, ForbiddenException, NotFoundException } from '@nestjs/common/exceptions';
+import { FiguresService } from 'src/figures/figures.service';
+import { CreateFigureDto } from 'src/figures/dto/create-figure.dto';
+import { PathsService } from 'src/paths/paths.service';
+import { AspectsService } from 'src/aspects/aspects.service';
 
 /**
  * Routage et contrôle des requete pour la table icons
@@ -18,12 +22,18 @@ import { ForbiddenException, NotFoundException } from '@nestjs/common/exceptions
  * @v2 **update**           : Demande de modification d'une icône
  * @v2 **publish**          : Demande de publication d'une icône
  * @v2 **remove**           : Demande de suppression d'une icône
+ * @v2 **addFigure**        : Demande d'ajout d'une figure dans une icône
  *
  * @version v2
  */
 @Controller('icons')
 export class IconsController {
-  constructor(private readonly iconsService: IconsService) {}
+  constructor(
+    private readonly iconsService: IconsService,
+    private readonly pathsService: PathsService,
+    private readonly aspectsService: AspectsService,
+    private readonly figuresService: FiguresService
+    ) {}
 
   /**
    * Demande de création d'une Icône
@@ -164,4 +174,70 @@ export class IconsController {
       data: path
     };
   }
+  
+
+  /**
+   * Demande d'ajout d'une figure dans une icône
+   *
+   * @param iconId Identifiant de l'icône
+   * @param createFormDto paramètres de création d'une Icône
+   * @param user l'auteur
+   * @returns la nouvelle Icône
+   *
+   * @version v2
+   */
+  @UseGuards(UserAuthGuard)
+  @Post(':iconId/figures')
+  @Bind(Param('iconId', ParseIntPipe))
+  async addFigure(@Param('iconId') iconId: string,@Body() createFormDto: CreateFigureDto, @GetUser() user: User) {
+
+    const icon = await this.iconsService.findOneById(+iconId) ;
+    const path = await this.pathsService.findOneById(createFormDto.pathId) ;
+    const aspect = await this.aspectsService.findOne(createFormDto.aspectId) ;
+    let order = createFormDto.order
+
+    if (icon === null) {
+      throw new NotFoundException("Cette icône n'existe pas") ;
+    } ;
+    if (icon.user.id !== user.id) {
+      throw new ForbiddenException("Vous n'avez pas accès à cette icône") ;
+    } ;
+
+    if (path === null) {
+      throw new NotFoundException("Ce path n'existe pas") ;
+    } ;
+    if (path.user.id !== user.id) {
+      throw new ForbiddenException("Vous n'avez pas accès à ce path") ;
+    } ;
+
+    if (aspect === null) {
+      throw new NotFoundException("Cet aspect n'existe pas") ;
+    } ;
+    if (aspect.user.id !== user.id) {
+      throw new ForbiddenException("Vous n'avez pas accès à cet aspect") ;
+    } ;
+
+    if (order){
+      if (order > icon.figures.length + 1){
+        throw new BadRequestException("la valeur de l'ordre est trop élevée") ;
+      }
+    }
+    else {
+      order = icon.figures.length + 1 ;
+    } ;
+
+    const figure = await this.figuresService.create(icon, path, aspect, order)
+
+    await Promise.all([figure])
+
+    return {
+      message: "Création d'une nouvelle Icône",
+      data: await this.iconsService.findOneById(+iconId)
+    } ;
+  }
+
+  
+  // @Get(':iconId/figures')
+  // @Patch(':iconId/figures/:figureOrder')
+  // @Delete(':iconId/figures/:figureOrder')
 }
