@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { PathStatus } from 'src/paths/Types/PathStatus';
 import { User } from 'src/users/entities/user.entity';
 import { CreateIconDto } from './dto/create-icon.dto';
 import { UpdateIconDto } from './dto/update-icon.dto';
@@ -28,8 +29,15 @@ export class IconsService {
     return await Icon.create({...createIconDto, user}).save();
   }
 
-  findAll() {
-    return `This action returns all icons`;
+  /**
+   * Demande de récupération de tous les icônes publiques
+   * 
+   * @returns Liste de tous les icônes publiques
+   * 
+   * @version v2
+   */
+  async findAllPublics() : Promise<Icon[]> {
+    return await Icon.findBy({status : PathStatus.PUBLIC});
   }
 
   findOne(id: number) {
