@@ -10,6 +10,7 @@ import { Figure } from './entities/figure.entity';
  * 
  * @v2 **create** : Demande d'ajout d'une figure à une icône
  * @v2 **update** : Demande de modification d'une figure dans une icône
+ * @v2 **remove** : Demande de suppression d'une figure dans une icône
  * 
  * @version v2
  */
@@ -77,7 +78,40 @@ export class FiguresService {
     return figure ;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} figure`;
+  /**
+   * Demande de suppression d'une figure dans une icône
+   * 
+   * @param icon icône dans laquelle on souhaite supprimer la figure
+   * @param order Position actuelle de la figure dans l'icône
+   * 
+   * @returns La figure supprimée
+   * 
+   * @version v2
+   */
+  async remove( icon : Icon, order : number ) {
+
+    
+    if (order !== icon.figures.length){
+      await Promise.all([...icon.figures.map(
+        async fig => {
+          if (fig.order > order){
+            fig.order -= 1 ;
+            return await fig.save() ;
+          }
+          else if (fig.order = order) {
+            fig.order = icon.figures.length ;
+            return await fig.save() ;
+          };
+          return fig ;
+        }
+      )]) ;
+    }
+
+    const figure = await Figure.findOneBy({icon : { id : icon.id }, order : icon.figures.length}) ;
+
+    if (figure !== null) {
+      await figure.remove()
+    }
+    return figure;
   }
 }
