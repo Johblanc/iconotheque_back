@@ -10,6 +10,9 @@ import { ValidatorConstraint, ValidatorConstraintInterface, ValidationArguments 
 export class IsViewbox implements ValidatorConstraintInterface {
 
   validate(text: string, args: ValidationArguments) {
+    if (!text){
+      return false ;
+    }
     const coords = text.split(" ") ;
     if (coords.length !== 4 )
     {
