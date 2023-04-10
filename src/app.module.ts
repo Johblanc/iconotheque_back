@@ -6,11 +6,16 @@ import { PathsModule } from './paths/paths.module';
 import { User } from './users/entities/user.entity';
 import { Path } from './paths/entities/path.entity';
 import { AuthModule } from './auth/auth.module';
+import { IconsModule } from './icons/icons.module';
+import { AspectsModule } from './aspects/aspects.module';
+import { Icon } from './icons/entities/icon.entity';
+import { Figure } from './figures/entities/figure.entity';
+import { Aspect } from './aspects/entities/aspect.entity';
 
 /**
  * Permet la liaison entre la base de données, les Entities et les Controleurs.
  * 
- * @version v0
+ * @version v2
  */
 @Module({
   imports: [
@@ -24,13 +29,18 @@ import { AuthModule } from './auth/auth.module';
       database: process.env.DATABASE_NAME,
       entities: [
         User, 
-        Path
+        Path,
+        Icon,
+        Figure,
+        Aspect
       ],
       synchronize: true,
     }),
     UsersModule,
     PathsModule,
-    AuthModule
+    AuthModule,
+    IconsModule,
+    AspectsModule
   ],
 })
 export class AppModule {}
