@@ -63,7 +63,7 @@ export class PathsService {
   }
 
   /**
-   * Demande de récupération d'un pathavec son id
+   * Demande de récupération d'un path avec son id
    * 
    * @param id Identifiant du path recherché
    * @returns Le path recherché, si il existe, sinon null
