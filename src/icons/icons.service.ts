@@ -10,6 +10,8 @@ import { Icon } from './entities/icon.entity';
  * Liaison avec la table icons de la BDD
  * 
  * @v2 **create**           : Demande de création d'une Icône
+ * @v2 **findAllPublics**   : Demande de récupération de tous les icônes publiques
+ * @v2 **findAllPrivates**  : Demande de récupération de tous les icônes privées d'un user
  * 
  * @version v2
  */
@@ -40,8 +42,16 @@ export class IconsService {
     return await Icon.findBy({status : PathStatus.PUBLIC});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} icon`;
+  /**
+   * Demande de récupération de tous les icônes privées d'un user
+   * 
+   * @param user l'auteur des icônes
+   * @returns Liste de tous les icônes privées
+   * 
+   * @version v2
+   */
+  async findAllPrivates(user : User) : Promise<Icon[]> {
+    return await Icon.findBy({status : PathStatus.PRIVATE,user : {id : user.id}});
   }
 
   update(id: number, updateIconDto: UpdateIconDto) {
