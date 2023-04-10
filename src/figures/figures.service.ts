@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Aspect } from 'src/aspects/entities/aspect.entity';
 import { Icon } from 'src/icons/entities/icon.entity';
 import { Path } from 'src/paths/entities/path.entity';
-import { UpdateFigureDto } from './dto/update-figure.dto';
 import { Figure } from './entities/figure.entity';
 
 /**
