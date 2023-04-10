@@ -2,10 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { IconsService } from './icons.service';
 import { CreateIconDto } from './dto/create-icon.dto';
 import { UpdateIconDto } from './dto/update-icon.dto';
-import { UseGuards } from '@nestjs/common/decorators';
+import { Bind, UseGuards } from '@nestjs/common/decorators';
 import { UserAuthGuard } from 'src/auth/user_guard/user-auth.guard';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/users/entities/user.entity';
+import { ParseIntPipe } from '@nestjs/common/pipes';
+import { ForbiddenException, NotFoundException } from '@nestjs/common/exceptions';
 
 /**
  * Routage et contrôle des requete pour la table icons
@@ -70,9 +72,36 @@ export class IconsController {
     };
   }
 
+
+  /**
+   * Demande de modification d'une icône
+   * 
+   * @param id identifiant de l'icône à modifier
+   * @param user Demandeur
+   * @param updateIconDto paramètres de modification de l'icône
+   * @returns L'icône modifiée
+   * 
+   * @version v2
+   */
+  @UseGuards(UserAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateIconDto: UpdateIconDto) {
-    return this.iconsService.update(+id, updateIconDto);
+  @Bind(Param('id', ParseIntPipe))
+  async update(@Param('id') id: string, @GetUser() user: User, @Body() updateIconDto: UpdateIconDto) {
+    
+    const icon = await this.iconsService.findOneById(+id) ;
+
+    if (icon === null) {
+      throw new NotFoundException("Cette icône n'existe pas")
+    }
+    
+    if (icon.user.id !== user.id){
+      throw new ForbiddenException("Cette icône ne vous appartient pas")
+    }
+    
+    return {
+      message: "Modification de l'icône",
+      data: await this.iconsService.update(+id, updateIconDto)
+    };
   }
 
   @Delete(':id')

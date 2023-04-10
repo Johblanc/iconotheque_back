@@ -3126,7 +3126,7 @@
         </mxGraphModel>
     </diagram>
     <diagram name="Routes" id="oQ0TIiHmHgG0efGpeVeY">
-        <mxGraphModel dx="338" dy="1045" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
+        <mxGraphModel dx="307" dy="1045" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="1" shadow="0">
             <root>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-0"/>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-1" parent="pfrP-zV9QZ0klHFA-rlE-0"/>
@@ -4313,7 +4313,7 @@
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-218" value="Suppression&amp;nbsp;de l'Aspect" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;fontColor=#00FF00;strokeColor=#00FF00;" parent="pfrP-zV9QZ0klHFA-rlE-1" vertex="1">
                     <mxGeometry x="719.9937662337661" y="389.0607042253521" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
-                <mxCell id="pfrP-zV9QZ0klHFA-rlE-219" value="Modification&amp;nbsp;d'une Icône" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#FF0000;fontColor=#FF0000;" parent="pfrP-zV9QZ0klHFA-rlE-1" vertex="1">
+                <mxCell id="pfrP-zV9QZ0klHFA-rlE-219" value="Modification&amp;nbsp;d'une Icône" style="ellipse;whiteSpace=wrap;html=1;fontSize=8;strokeColor=#00FF00;fontColor=#00FF00;" parent="pfrP-zV9QZ0klHFA-rlE-1" vertex="1">
                     <mxGeometry x="669.9737662337661" y="671.970704225352" width="97.04246753246753" height="29.859154929577464" as="geometry"/>
                 </mxCell>
                 <mxCell id="pfrP-zV9QZ0klHFA-rlE-220" value="" style="edgeStyle=orthogonalEdgeStyle;fontSize=8;html=1;endArrow=none;endFill=0;strokeColor=#404040;dashed=1;startArrow=openThin;startFill=0;" parent="pfrP-zV9QZ0klHFA-rlE-1" target="pfrP-zV9QZ0klHFA-rlE-222" edge="1">
