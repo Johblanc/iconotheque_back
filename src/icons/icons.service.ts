@@ -12,6 +12,9 @@ import { Icon } from './entities/icon.entity';
  * @v2 **create**           : Demande de création d'une Icône
  * @v2 **findAllPublics**   : Demande de récupération de tous les icônes publiques
  * @v2 **findAllPrivates**  : Demande de récupération de tous les icônes privées d'un user
+ * @v2 **findOneById**      : Demande de récupération d'une icône avec son id
+ * @v2 **update**           : Demande de modification d'une icône
+ * @v2 **publish**          : Demande de publication d'une icône
  * 
  * @version v2
  */
@@ -81,6 +84,24 @@ export class IconsService {
     if (icon !== null) {
       if (updateIconDto.name) icon.name = updateIconDto.name ;
       if (updateIconDto.viewbox) icon.viewbox = updateIconDto.viewbox ;
+      await icon.save()
+    }
+    return icon;
+  }
+
+  /**
+   * Demande de publication d'une icône
+   * 
+   * @param id Identifiant de l'icône à publier
+   * @returns L'icône publiée
+   * 
+   * @version v1
+   */
+  async publish(id: number) : Promise<Icon | null>
+  {
+    const icon = await Icon.findOneBy({id}) ;
+    if (icon !== null) {
+      icon.status = PathStatus.PUBLIC ;
       await icon.save()
     }
     return icon;
