@@ -11,18 +11,18 @@ import { User } from './entities/user.entity';
  * *@v1 **findOneById**     : Trouver un utilisateur par son identifiant
  * *@v1 **findOneByMail**   : Trouver un utilisateur par son mail
  * *@v1 **findOneByToken**  : Trouver un utilisateur par token
- * *@v1 **update**          : Mise à jour d'un utilisateur
+ * *@v2 **update**          : Mise à jour d'un utilisateur
  * *@v1 **findAll**         : Récupération de tous les utilisateurs
  * *@v1 **promote**         : Mise à jour d'un utilisateur
  *
- * @version v1
+ * @version v2
  */
 @Injectable()
 export class UsersService {
   /**
    * Demande de création d'un utilisateur
    *
-   * @param createUserDto parametre de création d'un utilisateur
+   * @param createUserDto parametres de création d'un utilisateur
    * @returns le nouvel utilisateur
    *
    * @version v1
@@ -105,14 +105,17 @@ export class UsersService {
    * Mise à jour d'un utilisateur
    *
    * @param user L'utilisateur à mettre à jour
+   * @param dto parametres de modification d'un utilisateur
    * @returns l'utilisateur modifié
    *
-   * @version v1
+   * @version v2
    */
   async update(user: User, dto: UpdateUserDto): Promise<User> {
-    if (dto.name) user.name = dto.name;
-    if (dto.mail) user.mail = dto.mail;
-    if (dto.password) user.password = dto.password;
+    if (dto.name) user.name = dto.name ;
+    if (dto.mail) user.mail = dto.mail ;
+    if (dto.password) user.password = dto.password ;
+    if (dto.theme_color) user.theme_color = dto.theme_color ;
+    if (dto.theme_refief) user.theme_refief = dto.theme_refief ;
 
     return await user.save();
   }

@@ -1,10 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsEmail, IsNotEmpty } from "class-validator";
+import { IsString, IsEmail, IsNotEmpty, IsNumber, Min, Max, IsHexColor, Length } from "class-validator";
 
 /**
  * Contrôle des paramètres de création d'un utilisateur
  * 
- * @version v1
+ * @version v2
  */
 export class CreateUserDto {
 
@@ -24,5 +24,16 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   password : string ;
+
+  @ApiProperty()
+  @IsHexColor()
+  @Length(7,7)
+  theme_color : string ;
+
+  @ApiProperty()
+  @IsNumber({maxDecimalPlaces : 2})
+  @Min(0)
+  @Max(1)
+  theme_refief : number ;
 
 }

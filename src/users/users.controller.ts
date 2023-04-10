@@ -13,8 +13,11 @@ import { AdminAuthGuard } from 'src/auth/admin_guard/admin-auth.guard';
 /**
  * Routage et contrôle des requete pour la table users
  * 
- * * **register** : Demande d'enregistrement d'un utilisateur
- * * **login** :Demande de d'authentification d'un utilisateur
+ * @v1 **register**       : Demande d'enregistrement d'un utilisateur
+ * @v1 **login**          : Demande de d'authentification d'un utilisateur
+ * @v1 **update**         : Demande de modification d'un utilisateur
+ * @v1 **findAllUsers**   : Récupération de tous les utilisateurs
+ * @v1 **promote**        : Promouvoir un utilisateur
  * 
  * @version v1
  */

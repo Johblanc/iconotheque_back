@@ -21,18 +21,18 @@ export class User extends BaseEntity {
 
   /** Nom de l'Utilisateur */
   @ApiProperty()
-  @Column({type : "varchar", unique : true})
+  @Column({ unique : true})
   name : string ;
 
   /** Mail de l'Utilisateur */
   @ApiProperty()
-  @Column({type : "varchar", unique : true, select : false})
+  @Column({ unique : true, select : false})
   mail : string ;
 
   /** Le mot de passe de l'Utilisateur */
   @Exclude()
   @ApiProperty()
-  @Column({type : "varchar"})
+  @Column()
   password : string ;
 
   /** 
@@ -44,6 +44,16 @@ export class User extends BaseEntity {
   @ApiProperty()
   @Column({type : "int", default : 1})
   access : number ;
+
+  /** La couleur du theme de l'Utilisateur */
+  @ApiProperty()
+  @Column()
+  theme_color : string ;
+
+  /** Le relief du theme de l'Utilisateur */
+  @ApiProperty()
+  @Column()
+  theme_refief : number ;
 
   /** Liste des paths de l'utilisateur */
   @ApiProperty()
