@@ -9,8 +9,8 @@ import { User } from './entities/user.entity';
  * *@v1 **create**          : Demande de création d'un utilisateur
  * *@v1 **findOneByName**   : Trouver un utilisateur par son nom
  * *@v1 **findOneById**     : Trouver un utilisateur par son identifiant
- * *@v1 **findOneByMail**   : Trouver un utilisateur par son mail
- * *@v1 **findOneByToken**  : Trouver un utilisateur par token
+ * *@v2 **findOneByMail**   : Trouver un utilisateur par son mail
+ * *@v2 **findOneByToken**  : Trouver un utilisateur par token
  * *@v2 **update**          : Mise à jour d'un utilisateur
  * *@v1 **findAll**         : Récupération de tous les utilisateurs
  * *@v1 **promote**         : Mise à jour d'un utilisateur
@@ -61,7 +61,7 @@ export class UsersService {
    * @param mail email de l'utilisateur recherché
    * @returns l'utilisateur, si il existe, sinon null
    *
-   * @version v1
+   * @version v2
    */
   async findOneByMail(mail: string): Promise<User | null> {
     return await User.findOne({
@@ -72,6 +72,8 @@ export class UsersService {
         password: true,
         mail: true,
         access: true,
+        theme_color: true,
+        theme_relief: true
       },
     });
   }
@@ -82,7 +84,7 @@ export class UsersService {
    * @param token token de l'utilisateur recherché
    * @returns l'utilisateur, si il existe, sinon null
    *
-   * @version v1
+   * @version v2
    */
   async findOneByToken(token: {
     name: string;
@@ -97,6 +99,8 @@ export class UsersService {
         password: true,
         mail: true,
         access: true,
+        theme_color: true,
+        theme_relief: true
       },
     });
   }
@@ -115,7 +119,7 @@ export class UsersService {
     if (dto.mail) user.mail = dto.mail ;
     if (dto.password) user.password = dto.password ;
     if (dto.theme_color) user.theme_color = dto.theme_color ;
-    if (dto.theme_refief) user.theme_refief = dto.theme_refief ;
+    if (dto.theme_relief) user.theme_relief = dto.theme_relief ;
 
     return await user.save();
   }

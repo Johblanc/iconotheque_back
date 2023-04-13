@@ -25,15 +25,17 @@ export class CreateUserDto {
   @IsNotEmpty()
   password : string ;
 
+  /** Couleur du Theme */
   @ApiProperty()
   @IsHexColor()
   @Length(7,7)
   theme_color : string ;
 
+  /** Transparence du Theme */
   @ApiProperty()
   @IsNumber({maxDecimalPlaces : 2})
   @Min(0)
   @Max(1)
-  theme_refief : number ;
+  theme_relief : number ;
 
 }

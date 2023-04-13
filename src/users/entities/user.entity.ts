@@ -50,10 +50,10 @@ export class User extends BaseEntity {
   @Column()
   theme_color : string ;
 
-  /** Le relief du theme de l'Utilisateur */
+  /** La transparence du theme de l'Utilisateur */
   @ApiProperty()
   @Column({type : "float"})
-  theme_refief : number ;
+  theme_relief : number ;
 
   /** Liste des paths de l'utilisateur */
   @ApiProperty()

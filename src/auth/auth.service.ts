@@ -22,7 +22,7 @@ export class AuthService {
    * @param password le mot de passe de l'utilisateur
    * @returns l'utilisateur sans mot de passe
    * 
-   * @version v1
+   * @version v2
    */
   async validateUser(name: string, password: string): Promise<any> {
     const user = await User.findOne({
@@ -32,7 +32,9 @@ export class AuthService {
         name : true ,
         password : true,
         mail : true,
-        access : true
+        access : true,
+        theme_color : true,
+        theme_relief : true
       }});
     const isOk = await bcrypt.compare( password, user ? user.password : "");
 
