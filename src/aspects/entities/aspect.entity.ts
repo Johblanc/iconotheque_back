@@ -28,7 +28,7 @@ export class Aspect extends BaseEntity {
 
   /** Opacité de remplissage */
   @ApiProperty()
-  @Column()
+  @Column({type : "float"})
   fill_opacity : number ;
 
   /** Couleur de bordure */
@@ -38,12 +38,12 @@ export class Aspect extends BaseEntity {
 
   /** Opacité de bordure */
   @ApiProperty()
-  @Column()
+  @Column({type : "float"})
   stroke_opacity : number ;
 
   /** Epaiseur de bordure */
   @ApiProperty()
-  @Column()
+  @Column({type : "float"})
   stroke_width : number ;
 
   /** Les Figures utilisants cet Aspect */
