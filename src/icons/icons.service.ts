@@ -4,6 +4,7 @@ import { User } from 'src/users/entities/user.entity';
 import { CreateIconDto } from './dto/create-icon.dto';
 import { UpdateIconDto } from './dto/update-icon.dto';
 import { Icon } from './entities/icon.entity';
+import { Figure } from 'src/figures/entities/figure.entity';
 
 
 /**
@@ -31,8 +32,12 @@ export class IconsService {
    * 
    * @version v2
    */
-  async create(createIconDto: CreateIconDto, user : User) : Promise<Icon> {
-    return await Icon.create({...createIconDto, user}).save();
+  async create(createIconDto: CreateIconDto, user : User) : Promise<Icon | null> {
+    const newIcon = await Icon.create({...createIconDto, user}).save(); 
+    await Promise.all([newIcon])
+    await Promise.all(createIconDto.figures.map(async fig => await Figure.create({...fig,icon : newIcon}).save() ))
+  
+    return await Icon.findOneBy({id : newIcon.id})
   }
 
   /**

@@ -52,6 +52,18 @@ export class IconsController {
   @UseGuards(UserAuthGuard)
   @Post()
   async create(@Body() createIconDto: CreateIconDto, @GetUser() user: User) {
+    
+    for ( let i = 0 ; i < createIconDto.figures.length ; i += 1 ) {
+      const item = createIconDto.figures[i] ;
+      const path = await this.pathsService.findOneById(item.path.id) ;
+      if (path === null) {
+        throw new NotFoundException("Un des path n'existe pas") ;
+      }
+      const aspect = await this.aspectsService.findOne(item.aspect.id) ;
+      if (aspect === null) {
+        throw new NotFoundException("Un des aspect n'existe pas") ;
+      }
+    }
     return {
       message: "Création d'une nouvelle Icône",
       data: await this.iconsService.create(createIconDto, user)
