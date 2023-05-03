@@ -67,12 +67,12 @@ export class AspectsService {
   async update(id: number, updateAspectDto: UpdateAspectDto) {
     const aspect = await Aspect.findOne({where :{id},relations : {user : true}}) ;
     if (aspect !== null) {
-      if (updateAspectDto.name) aspect.name = updateAspectDto.name ;
-      if (updateAspectDto.fill_color) aspect.fill_color = updateAspectDto.fill_color ;
-      if (updateAspectDto.fill_opacity) aspect.fill_opacity = updateAspectDto.fill_opacity ;
-      if (updateAspectDto.stroke_color) aspect.stroke_color = updateAspectDto.stroke_color ;
-      if (updateAspectDto.stroke_opacity) aspect.stroke_opacity = updateAspectDto.stroke_opacity ;
-      if (updateAspectDto.stroke_width) aspect.stroke_width = updateAspectDto.stroke_width ;
+      if (updateAspectDto.name           !== undefined ) aspect.name           = updateAspectDto.name ;
+      if (updateAspectDto.fill_color     !== undefined ) aspect.fill_color     = updateAspectDto.fill_color ;
+      if (updateAspectDto.fill_opacity   !== undefined ) aspect.fill_opacity   = updateAspectDto.fill_opacity ;
+      if (updateAspectDto.stroke_color   !== undefined ) aspect.stroke_color   = updateAspectDto.stroke_color ;
+      if (updateAspectDto.stroke_opacity !== undefined ) aspect.stroke_opacity = updateAspectDto.stroke_opacity ;
+      if (updateAspectDto.stroke_width   !== undefined ) aspect.stroke_width   = updateAspectDto.stroke_width ;
       await aspect.save()
     }
     return aspect;
