@@ -127,7 +127,20 @@ export class IconsController {
     if (icon.user.id !== user.id){
       throw new ForbiddenException("Cette icône ne vous appartient pas")
     }
-    
+    if (updateIconDto.figures) {
+      for ( let i = 0 ; i < updateIconDto.figures.length ; i += 1 ) {
+        const item = updateIconDto.figures[i] ;
+        const path = await this.pathsService.findOneById(item.path.id) ;
+        if (path === null) {
+          throw new NotFoundException("Un des path n'existe pas") ;
+        }
+        const aspect = await this.aspectsService.findOne(item.aspect.id) ;
+        if (aspect === null) {
+          throw new NotFoundException("Un des aspect n'existe pas") ;
+        }
+      }
+    }
+
     return {
       message: "Modification de l'icône",
       data: await this.iconsService.update(+id, updateIconDto)

@@ -5,6 +5,8 @@ import { CreateIconDto } from './dto/create-icon.dto';
 import { UpdateIconDto } from './dto/update-icon.dto';
 import { Icon } from './entities/icon.entity';
 import { Figure } from 'src/figures/entities/figure.entity';
+import { Aspect } from 'src/aspects/entities/aspect.entity';
+import { Path } from 'src/paths/entities/path.entity';
 
 
 /**
@@ -88,11 +90,48 @@ export class IconsService {
   async update(id: number, updateIconDto: UpdateIconDto) : Promise<Icon | null> {
     const icon = await Icon.findOneBy({id}) ;
     if (icon !== null) {
-      if (updateIconDto.name) icon.name = updateIconDto.name ;
-      if (updateIconDto.viewbox) icon.viewbox = updateIconDto.viewbox ;
-      await icon.save()
+      if ( updateIconDto.name !== undefined ) icon.name = updateIconDto.name ;
+      if ( updateIconDto.viewbox !== undefined ) icon.viewbox = updateIconDto.viewbox ;
+      if ( updateIconDto.figures !== undefined ) {
+        const figures = [...icon.figures].sort((a, b) => a.order - b.order)
+        
+        await Promise.all([...figures.map(async item => {
+          if (item.order > updateIconDto.figures!.length) {
+            return await item.remove() ;
+          }
+          else
+          {
+            const newItem = updateIconDto.figures?.filter( elm => elm.order === item.order )[0]! ;
+
+            const aspect = await Aspect.findOneBy({id : newItem.aspect.id}) ;
+            if (aspect !== null) {
+              item.aspect = aspect ;
+            } ;
+
+            const path = await Path.findOneBy({id : newItem.path.id}) ;
+            if (path !== null) {
+              item.path = path ;
+            } ;
+            await Promise.all([aspect,path])
+            return await item.save()
+
+          }
+        })])
+        if ( figures.length < updateIconDto.figures.length ){
+          await Promise.all([
+            ...updateIconDto.figures
+            .filter(item => item.order > figures.length) 
+            .map(async item => {
+              const newFigure = await Figure.create({...item, icon }).save() ;
+              icon.figures.push(newFigure) ;
+              return newFigure
+            })
+          ])
+        }
+      }
+      await Promise.all([icon.save()])
     }
-    return icon;
+    return await this.findOneById(id);
   }
 
   /**
